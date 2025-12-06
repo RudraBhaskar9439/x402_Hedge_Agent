@@ -1,0 +1,27 @@
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Example utility classes for Tailwind-like look */
+.text-slate-400 { color: #94a3b8; }
+.text-slate-500 { color: #64748b; }
+.text-purple-400 { color: #a78bfa; }
+.text-purple-600 { color: #7c3aed; }
+.text-green-400 { color: #4ade80; }
+.text-green-500 { color: #22c55e; }
+.text-yellow-400 { color: #facc15; }
+.bg-purple-600 { background: #7c3aed; }
+.bg-purple-700 { background: #6d28d9; }
+.bg-green-500 { background: #22c55e; }
+.bg-green-600 { background: #16a34a; }
+.bg-slate-800 { background: #1e293b; }
+.bg-slate-900 { background: #0f172a; }
+.rounded-xl { border-radius: 1rem; }
+.rounded-2xl { border-radius: 1.5rem; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.font-bold { font-weight: bold; }
+.transition-all { transition: all 0.3s; }

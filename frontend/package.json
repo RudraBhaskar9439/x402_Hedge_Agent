@@ -1,0 +1,25 @@
+{
+  "name": "erc8004-ai-hub-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend for ERC-8004 AI Trading Models Hub",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^13.4.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ethers": "^6.8.1",
+    "lucide-react": "^0.263.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^13.4.19",
+    "typescript": "^5.2.2"
+  }
+}
