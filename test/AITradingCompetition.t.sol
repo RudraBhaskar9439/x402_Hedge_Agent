@@ -14,15 +14,18 @@ contract AITradingCompetitionTest is Test {
     address public modelOwner2;
     address public modelOwner3;
 
+    // Allow test contract to receive ETH
+    receive() external payable {}
+
     event CompetitionCreated(uint256 indexed competitionId, string name, uint256 startTime, uint256 endTime);
     event ModelEntered(uint256 indexed competitionId, uint256 indexed modelId, address indexed owner);
     event CompetitionCompleted(uint256 indexed competitionId, uint256 indexed winnerModelId, uint256 prize);
 
     function setUp() public {
         owner = address(this);
-        modelOwner1 = address(0x1);
-        modelOwner2 = address(0x2);
-        modelOwner3 = address(0x3);
+        modelOwner1 = address(0x1001); // Use regular addresses, not precompiles
+        modelOwner2 = address(0x1002);
+        modelOwner3 = address(0x1003);
 
         registry = new AIModelRegistry();
         competition = new AITradingCompetition(address(registry));
@@ -30,7 +33,7 @@ contract AITradingCompetitionTest is Test {
 
     function _createModelWithTrackRecord(address modelOwner) internal returns (uint256 modelId) {
         vm.prank(modelOwner);
-        modelId = registry.registerModel("ipfs://model", 1 ether);
+        modelId = registry.registerModel("ipfs://model", 1 ether, 1e15);
 
         // Create track record (need at least 10 inferences)
         vm.prank(modelOwner);
@@ -107,7 +110,7 @@ contract AITradingCompetitionTest is Test {
         );
 
         vm.prank(modelOwner1);
-        uint256 modelId = registry.registerModel("ipfs://model", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model", 1 ether, 1e15);
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);

@@ -5,8 +5,13 @@ import {Test, console} from "forge-std/Test.sol";
 import {AIModelRegistry} from "../src/AIModelRegistry.sol";
 import {IERC8004} from "../src/IERC8004.sol";
 
+// Minimal concrete implementation for testing
+contract TestableAIModelRegistry is AIModelRegistry {
+    // No extra code needed if all functions are implemented in AIModelRegistry
+}
+
 contract AIModelRegistryTest is Test {
-    AIModelRegistry public registry;
+    TestableAIModelRegistry public registry;
     address public owner;
     address public user1;
     address public user2;
@@ -19,18 +24,21 @@ contract AIModelRegistryTest is Test {
     event InferenceRequested(uint256 indexed requestId, uint256 indexed modelId, address indexed requester, bytes inputData);
     event InferenceCompleted(uint256 indexed requestId, uint256 indexed modelId, bytes outputData, uint256 confidence);
     event PerformanceUpdated(uint256 indexed modelId, uint256 accuracy, uint256 totalInferences);
+    event Invested(uint256 indexed modelId, address indexed user, uint256 amount);
+    event Withdrawn(uint256 indexed modelId, address indexed user, uint256 amount);
+    event StreamingFeePaid(uint256 indexed modelId, address indexed user, uint256 fee, uint256 timeElapsed);
 
     function setUp() public {
         owner = address(this);
         user1 = address(0x1);
         user2 = address(0x2);
         oracle = address(0x3);
-        registry = new AIModelRegistry();
+        registry = new TestableAIModelRegistry();
     }
 
     function test_RegisterModel() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         assertEq(modelId, 1);
         assertEq(registry.ownerOf(modelId), user1);
         (address owner_, string memory modelURI, uint256 price, uint256 inferences, uint256 accuracy) = registry.getModelInfo(modelId);
@@ -44,18 +52,18 @@ contract AIModelRegistryTest is Test {
     function test_RegisterModel_EmptyURI() public {
         vm.prank(user1);
         vm.expectRevert("Empty URI");
-        registry.registerModel("", 1 ether);
+        registry.registerModel("", 1 ether, 1e15);
     }
 
     function test_RegisterModel_InvalidPrice() public {
         vm.prank(user1);
         vm.expectRevert("Invalid price");
-        registry.registerModel("ipfs://QmTest123", 0);
+        registry.registerModel("ipfs://QmTest123", 0, 1e15);
     }
 
     function test_RequestInference() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 2 ether);
         uint256 requestId = registry.requestInference{value: 1 ether}(modelId, "test input data");
@@ -70,7 +78,7 @@ contract AIModelRegistryTest is Test {
 
     function test_RequestInference_InsufficientPayment() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 0.5 ether);
         vm.expectRevert("Insufficient payment");
@@ -79,7 +87,8 @@ contract AIModelRegistryTest is Test {
 
     function test_RequestInference_InactiveModel() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
+        vm.prank(user1);
         registry.deactivateModel(modelId);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
@@ -89,7 +98,7 @@ contract AIModelRegistryTest is Test {
 
     function test_SubmitInference() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
         uint256 requestId = registry.requestInference{value: 1 ether}(modelId, "test input data");
@@ -106,7 +115,7 @@ contract AIModelRegistryTest is Test {
 
     function test_SubmitInference_Unauthorized() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
         uint256 requestId = registry.requestInference{value: 1 ether}(modelId, "test input data");
@@ -117,7 +126,7 @@ contract AIModelRegistryTest is Test {
 
     function test_SubmitInference_AuthorizedOracle() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         registry.authorizeOracle(oracle, true);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
@@ -131,7 +140,7 @@ contract AIModelRegistryTest is Test {
 
     function test_UpdateModelPerformance() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
         uint256 requestId = registry.requestInference{value: 1 ether}(modelId, "test input data");
@@ -148,7 +157,7 @@ contract AIModelRegistryTest is Test {
 
     function test_UpdateModelPerformance_Multiple() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         // First prediction
         vm.prank(user2);
         vm.deal(user2, 2 ether);
@@ -173,7 +182,7 @@ contract AIModelRegistryTest is Test {
 
     function test_UpdateModelPrice() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user1);
         registry.updateModelPrice(modelId, 2 ether);
         (,, uint256 price,,) = registry.getModelInfo(modelId);
@@ -182,7 +191,7 @@ contract AIModelRegistryTest is Test {
 
     function test_UpdateModelPrice_NotOwner() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.expectRevert();
         registry.updateModelPrice(modelId, 2 ether);
@@ -190,7 +199,7 @@ contract AIModelRegistryTest is Test {
 
     function test_DeactivateModel() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user1);
         registry.deactivateModel(modelId);
         vm.prank(user2);
@@ -201,7 +210,7 @@ contract AIModelRegistryTest is Test {
 
     function test_WithdrawPlatformFees() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.deal(user2, 1 ether);
         uint256 requestId = registry.requestInference{value: 1 ether}(modelId, "test");
@@ -218,7 +227,7 @@ contract AIModelRegistryTest is Test {
 
     function test_TransferModel() public {
         vm.prank(user1);
-        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user1);
         registry.transferFrom(user1, user2, modelId);
         assertEq(registry.ownerOf(modelId), user2);
@@ -229,27 +238,98 @@ contract AIModelRegistryTest is Test {
     function test_GetTopModels() public {
         // Register multiple models
         vm.prank(user1);
-        uint256 modelId1 = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId1 = registry.registerModel("ipfs://model1", 1 ether, 1e15);
         vm.prank(user2);
-        uint256 modelId2 = registry.registerModel("ipfs://model2", 1 ether);
-        // Make predictions for model1
-        vm.prank(user1);
+        uint256 modelId2 = registry.registerModel("ipfs://model2", 1 ether, 1e15);
+        // Make predictions for model1 - user1 requests, user1 submits, user1 updates (as requester)
         vm.deal(user1, 2 ether);
+        vm.startPrank(user1);
         uint256 req1 = registry.requestInference{value: 1 ether}(modelId1, "test1");
-        vm.prank(user1);
         registry.submitInference(req1, "BUY", 8000);
-        vm.prank(user1);
+        // user1 is the requester, so they can update performance
         registry.updateModelPerformance(req1, true, 100);
         uint256 req2 = registry.requestInference{value: 1 ether}(modelId1, "test2");
-        vm.prank(user1);
         registry.submitInference(req2, "SELL", 8000);
-        vm.prank(user1);
         registry.updateModelPerformance(req2, true, 50);
+        vm.stopPrank();
         // Model1 should have 100% accuracy with 2 predictions
         (uint256[] memory modelIds, uint256[] memory accuracies) = registry.getTopModels(10);
         // Should return models with at least 10 predictions (none meet this threshold)
         // But let's check the function works
         assertGe(modelIds.length, 0);
+    }
+
+    function test_InvestAndWithdraw() public {
+        // Register model with streamingRate = 1e15 wei/sec (0.001 ETH/sec)
+        vm.prank(user1);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
+        
+        // User2 invests 2 ETH
+        vm.prank(user2);
+        vm.deal(user2, 2 ether);
+        vm.expectEmit(true, true, false, true);
+        emit Invested(modelId, user2, 2 ether);
+        registry.invest{value: 2 ether}(modelId);
+        
+        // Fast forward 10 seconds
+        vm.warp(block.timestamp + 10);
+        
+        // User2 withdraws 1 ETH
+        uint256 user2BalanceBefore = user2.balance;
+        vm.prank(user2);
+        vm.expectEmit(true, true, false, true);
+        // Streaming fee: 1e15 * 10 * 1e18 / 2e18 = 5e15 wei (0.005 ETH)
+        emit StreamingFeePaid(modelId, user2, 5e15, 10);
+        vm.expectEmit(true, true, false, true);
+        emit Withdrawn(modelId, user2, 1 ether);
+        registry.withdraw(modelId, 1 ether);
+        uint256 user2BalanceAfter = user2.balance;
+        // User receives 1 ETH - 0.005 ETH = 0.995 ETH
+        assertEq(user2BalanceAfter - user2BalanceBefore, 0.995 ether);
+        
+        // Withdraw remaining, should reset timestamp
+        vm.warp(block.timestamp + 5);
+        vm.prank(user2);
+        registry.withdraw(modelId, 1 ether);
+        // Should emit StreamingFeePaid and Withdrawn again
+    }
+
+    function test_Withdraw_OverchargePrevention() public {
+        // Register model with high streamingRate
+        vm.prank(user1);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1 ether); // 1 ETH/sec
+        vm.prank(user2);
+        vm.deal(user2, 1 ether);
+        registry.invest{value: 1 ether}(modelId);
+        vm.warp(block.timestamp + 2); // 2 seconds
+        vm.prank(user2);
+        // Streaming fee would be 2 ETH, but only 1 ETH invested, so fee capped at 1 ETH
+        vm.expectEmit(true, true, false, true);
+        emit StreamingFeePaid(modelId, user2, 1 ether, 2);
+        vm.expectEmit(true, true, false, true);
+        emit Withdrawn(modelId, user2, 1 ether);
+        registry.withdraw(modelId, 1 ether);
+        // User receives 0 ETH
+        assertEq(user2.balance, 0);
+    }
+
+    function test_Withdraw_InsufficientBalance() public {
+        vm.prank(user1);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
+        vm.prank(user2);
+        vm.deal(user2, 1 ether);
+        registry.invest{value: 1 ether}(modelId);
+        vm.prank(user2);
+        vm.expectRevert("Insufficient balance");
+        registry.withdraw(modelId, 2 ether);
+    }
+
+    function test_Invest_ZeroAmount() public {
+        vm.prank(user1);
+        uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
+        vm.prank(user2);
+        vm.expectRevert("No ETH sent");
+        registry.invest{value: 0}(modelId);
     }
 }
 

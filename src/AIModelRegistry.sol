@@ -32,6 +32,7 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         uint256 correctPredictions;
         uint256 totalPredictions;
         int256 totalPnL;           // Cumulative P&L from signals
+        uint256 streamingRate;     // x402: fee per second (in wei)
     }
     
     struct InferenceRequest {
@@ -43,6 +44,11 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         uint256 timestamp;
         bool completed;
         uint256 pricePaid;
+    }
+
+    struct InvestmentInfo {
+        uint256 amount;
+        uint256 lastInvestTimestamp;
     }
     
     // Storage
@@ -57,6 +63,13 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
     
     // Authorized oracles that can submit inferences
     mapping(address => bool) public authorizedOracles;
+
+    // User investments: modelId => user => InvestmentInfo
+    mapping(uint256 => mapping(address => InvestmentInfo)) public investments;
+
+    event Invested(uint256 indexed modelId, address indexed user, uint256 amount);
+    event Withdrawn(uint256 indexed modelId, address indexed user, uint256 amount);
+    event StreamingFeePaid(uint256 indexed modelId, address indexed user, uint256 fee, uint256 timeElapsed);
     
     constructor() ERC721("AI Trading Model", "AITM") Ownable(msg.sender) {
         nextModelId = 1;
@@ -68,10 +81,12 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
      */
     function registerModel(
         string calldata modelURI,
-        uint256 inferencePrice
-    ) external override returns (uint256 modelId) {
+        uint256 inferencePrice,
+        uint256 streamingRate
+    ) external returns (uint256 modelId) {
         require(bytes(modelURI).length > 0, "Empty URI");
         require(inferencePrice > 0, "Invalid price");
+        require(streamingRate > 0, "Invalid streaming rate");
         
         modelId = nextModelId++;
         
@@ -86,13 +101,23 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
             createdAt: block.timestamp,
             correctPredictions: 0,
             totalPredictions: 0,
-            totalPnL: 0
+            totalPnL: 0,
+            streamingRate: streamingRate
         });
         
         // Mint NFT to owner
         _safeMint(msg.sender, modelId);
         
         emit ModelRegistered(modelId, msg.sender, modelURI, inferencePrice);
+    }
+
+    // Compatibility: legacy 2-arg registerModel for IERC8004
+    function registerModel(
+        string calldata modelURI,
+        uint256 inferencePrice
+    ) external override returns (uint256 modelId) {
+        // Use a default streamingRate for legacy interface
+        return this.registerModel(modelURI, inferencePrice, 1e15);
     }
     
     /**
@@ -161,7 +186,8 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         totalPlatformFees += platformFee;
         
         // Transfer to model owner
-        payable(model.owner).transfer(modelOwnerFee);
+        (bool sent, ) = payable(model.owner).call{value: modelOwnerFee}("");
+        require(sent, "Failed to send to model owner");
         
         emit InferenceCompleted(requestId, request.modelId, outputData, confidence);
     }
@@ -340,6 +366,50 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         require(ownerOf(modelId) == msg.sender, "Not model owner");
         models[modelId].isActive = false;
     }
+
+    /**
+     * @notice Reactivate model
+     */
+    function reactivateModel(uint256 modelId) external {
+        require(ownerOf(modelId) == msg.sender, "Not model owner");
+        models[modelId].isActive = true;
+    }
+
+    /**
+     * @notice Update streaming rate for a model
+     */
+    function updateStreamingRate(uint256 modelId, uint256 newStreamingRate) external {
+        require(ownerOf(modelId) == msg.sender, "Not model owner");
+        require(newStreamingRate > 0, "Invalid streaming rate");
+        models[modelId].streamingRate = newStreamingRate;
+    }
+
+    /**
+     * @notice Get user's investment information for a model
+     */
+    function getInvestmentInfo(uint256 modelId, address user)
+        external
+        view
+        returns (
+            uint256 amount,
+            uint256 lastInvestTimestamp,
+            uint256 currentStreamingFee
+        )
+    {
+        InvestmentInfo storage inv = investments[modelId][user];
+        AIModel storage model = models[modelId];
+        
+        uint256 fee = 0;
+        if (inv.amount > 0 && inv.lastInvestTimestamp > 0) {
+            uint256 timeElapsed = block.timestamp - inv.lastInvestTimestamp;
+            fee = model.streamingRate * timeElapsed;
+            if (fee > inv.amount) {
+                fee = inv.amount; // Cap at investment amount
+            }
+        }
+        
+        return (inv.amount, inv.lastInvestTimestamp, fee);
+    }
     
     /**
      * @notice Authorize oracle for inference submission
@@ -356,9 +426,64 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         require(amount > 0, "No fees");
         
         totalPlatformFees = 0;
-        payable(owner()).transfer(amount);
+        (bool sent, ) = payable(owner()).call{value: amount}("");
+        require(sent, "Withdraw failed");
     }
     
+    /**
+     * @notice Invest in an AI model/strategy
+     * @param modelId The model to invest in
+     */
+    function invest(uint256 modelId) external payable nonReentrant {
+        AIModel storage model = models[modelId];
+        require(model.isActive, "Model not active");
+        require(msg.value > 0, "No ETH sent");
+        InvestmentInfo storage inv = investments[modelId][msg.sender];
+        // If new investment, set timestamp
+        if (inv.amount == 0) {
+            inv.lastInvestTimestamp = block.timestamp;
+        }
+        inv.amount += msg.value;
+        emit Invested(modelId, msg.sender, msg.value);
+    }
+
+    /**
+     * @notice Withdraw investment from an AI model/strategy
+     * @param modelId The model to withdraw from
+     * @param amount The amount to withdraw
+     */
+    function withdraw(uint256 modelId, uint256 amount) external nonReentrant {
+        require(amount > 0, "Zero amount");
+        InvestmentInfo storage inv = investments[modelId][msg.sender];
+        require(inv.amount >= amount, "Insufficient balance");
+        AIModel storage model = models[modelId];
+        // Calculate streaming fee (x402):
+        uint256 timeElapsed = block.timestamp - inv.lastInvestTimestamp;
+        uint256 streamingFee = model.streamingRate * timeElapsed * amount / inv.amount;
+        if (streamingFee > amount) {
+            streamingFee = amount; // Prevent overcharging
+        }
+        uint256 payout = amount - streamingFee;
+        inv.amount -= amount;
+        if (inv.amount == 0) {
+            inv.lastInvestTimestamp = 0;
+        } else {
+            inv.lastInvestTimestamp = block.timestamp;
+        }
+        // Pay streaming fee to model owner
+        if (streamingFee > 0) {
+            (bool sentFee, ) = payable(model.owner).call{value: streamingFee}("");
+            require(sentFee, "Fee transfer failed");
+            emit StreamingFeePaid(modelId, msg.sender, streamingFee, timeElapsed);
+        }
+        // Pay remaining to user
+        if (payout > 0) {
+            (bool sentUser, ) = payable(msg.sender).call{value: payout}("");
+            require(sentUser, "Withdraw failed");
+        }
+        emit Withdrawn(modelId, msg.sender, amount);
+    }
+
     /**
      * @notice Override transfers to update ownership
      */

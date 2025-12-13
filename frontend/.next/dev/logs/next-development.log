@@ -1,0 +1,1496 @@
+[00:00:01.187] Server  LOG      ✓ Ready in 848ms
+[00:00:44.784] Server  LOG      ○ Compiling /model/[id] ...
+[00:00:47.063] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:47.065] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:48.731] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:49.222] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:49.222] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:49.223] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:49.223] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:00:49.225] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/model/11" tree={[...]} params={{id:"11"}} cacheNode={{lazyData:null, ...}} ...>
+      <SegmentViewNode type="page" pagePath="/agent-hed...">
+        <SegmentTrieNode>
+        <ClientPageRoot Component={function ModelDetailPage} serverProvidedParams={{...}}>
+          <ModelDetailPage params={Promise} searchParams={Promise}>
+            <div className="min-h-scre...">
+              <AnimatedBackground>
+              <Navbar>
+              <main className="flex-1 py-8">
+                <div className="container ...">
+                  <LinkComponent>
+                  <div className="flex flex-...">
+                    <div className="flex-1">
+                      <div className="flex items...">
+                        <div>
+                        <div>
+                          <div className="flex items...">
+                            <h1>
+                            <Badge variant="outline" className="text-sm bg...">
+                              <span
+                                data-slot="badge"
++                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+-                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+                              >
++                               Momentum
+-                               Arbitrage
+                          ...
+                      ...
+                    ...
+                  ...
+              ...
+      ...
+
+[00:00:51.732] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:51.732] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/11","route":"/model/[id]"}
+[00:00:51.733] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/11","route":"/model/[id]"}
+[00:00:51.733] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/11 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/11","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765662257216}
+[00:00:51.733] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/11 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/11","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765662257216}
+[00:01:41.271] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/competitions color: rgb(120, 120, 120) color: inherit {"dp":"/competitions","o":"http://localhost:3000/competitions","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765662306716}
+[00:23:58.310] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/marketplace color: rgb(120, 120, 120) color: inherit {"dp":"/marketplace","o":"http://localhost:3000/marketplace","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765663643756}
+[00:24:30.012] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/competitions color: rgb(120, 120, 120) color: inherit {"dp":"/competitions","o":"http://localhost:3000/competitions","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765663675441}
+[00:24:32.625] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765663678058}
+[00:24:39.516] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:24:39.516] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:24:39.516] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:24:39.516] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:24:39.516] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765663684834}
+[00:27:20.758] Server  LOG      ✓ Compiled in 436ms
+[00:27:29.265] Server  LOG      ✓ Compiled in 233ms
+[00:27:36.475] Server  LOG      ✓ Compiled in 114ms
+[00:27:44.179] Server  LOG      ✓ Compiled in 82ms
+[00:28:50.106] Server  LOG      ✓ Compiled in 281ms
+[00:29:20.171] Server  LOG      ✓ Compiled in 176ms
+[00:29:22.751] Server  LOG      ✓ Compiled in 264ms
+[00:29:26.071] Server  LOG      ✓ Compiled in 165ms
+[00:29:35.919] Server  LOG      ✓ Compiled in 173ms
+[00:29:41.959] Server  LOG      ✓ Compiled in 212ms
+[00:29:42.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-client] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:42.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-ssr] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:45.375] Server  LOG      ✓ Compiled in 267ms
+[00:29:45.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-client] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:45.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-ssr] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:49.411] Server  LOG      ✓ Compiled in 121ms
+[00:29:49.884] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-client] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:49.884] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-ssr] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:51.075] Server  LOG      ✓ Compiled in 49ms
+[00:29:51.895] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-client] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:51.895] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:15:1
+Export formatEther doesn't exist in target module
+  13 | import { Badge } from "@/components/ui/badge"
+  14 | import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+> 15 | import { formatEth, formatEther } from "@/lib/utils"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  16 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  17 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+  18 | import { useModels } from "@/hooks/use-models"
+
+The export formatEther was not found in module [project]/agent-hedge-fund/frontend/lib/utils.ts [app-ssr] (ecmascript).
+Did you mean to import formatEth?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+[00:29:58.533] Server  LOG      ✓ Compiled in 153ms
+[00:30:11.110] Server  LOG      ✓ Compiled in 126ms
+[00:31:20.441] Server  LOG        Reload env: .env
+[00:31:22.680] Server  LOG        Reload env: .env
+[00:32:09.319] Server  LOG      ✓ Compiled in 1ms
+[00:32:10.194] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:10.198] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:12.167] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:12.660] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:12.660] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:12.660] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:12.660] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:12.660] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/model/12" tree={[...]} params={{id:"12"}} cacheNode={{lazyData:null, ...}} ...>
+      <SegmentViewNode type="page" pagePath="/agent-hed...">
+        <SegmentTrieNode>
+        <ClientPageRoot Component={function ModelDetailPage} serverProvidedParams={{...}}>
+          <ModelDetailPage params={Promise} searchParams={Promise}>
+            <div className="min-h-scre...">
+              <AnimatedBackground>
+              <Navbar>
+              <main className="flex-1 py-8">
+                <div className="container ...">
+                  <LinkComponent>
+                  <div className="flex flex-...">
+                    <div className="flex-1">
+                      <div className="flex items...">
+                        <div>
+                        <div>
+                          <div className="flex items...">
+                            <h1>
+                            <Badge variant="outline" className="text-sm bg...">
+                              <span
+                                data-slot="badge"
++                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+-                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+                              >
++                               Mean Reversion
+-                               Momentum
+                          ...
+                      ...
+                    ...
+                  ...
+              ...
+      ...
+
+[00:32:12.832] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:32:12.833] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:12.833] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:12.833] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664138190}
+[00:32:12.833] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664138190}
+[00:32:27.682] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:27.685] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:28.813] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:29.400] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:29.400] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:29.401] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:29.401] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:29.401] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/model/12" tree={[...]} params={{id:"12"}} cacheNode={{lazyData:null, ...}} ...>
+      <SegmentViewNode type="page" pagePath="/agent-hed...">
+        <SegmentTrieNode>
+        <ClientPageRoot Component={function ModelDetailPage} serverProvidedParams={{...}}>
+          <ModelDetailPage params={Promise} searchParams={Promise}>
+            <div className="min-h-scre...">
+              <AnimatedBackground>
+              <Navbar>
+              <main className="flex-1 py-8">
+                <div className="container ...">
+                  <LinkComponent>
+                  <div className="flex flex-...">
+                    <div className="flex-1">
+                      <div className="flex items...">
+                        <div>
+                        <div>
+                          <div className="flex items...">
+                            <h1>
+                            <Badge variant="outline" className="text-sm bg...">
+                              <span
+                                data-slot="badge"
++                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+-                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+                              >
++                               Momentum
+-                               Mean Reversion
+                          ...
+                      ...
+                    ...
+                  ...
+              ...
+      ...
+
+[00:32:29.401] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:32:29.401] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:29.401] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:29.401] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664154724}
+[00:32:29.401] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664154724}
+[00:32:34.792] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:34.793] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:35.772] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:36.328] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:36.328] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:36.328] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:36.328] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:32:36.328] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/model/12" tree={[...]} params={{id:"12"}} cacheNode={{lazyData:null, ...}} ...>
+      <SegmentViewNode type="page" pagePath="/agent-hed...">
+        <SegmentTrieNode>
+        <ClientPageRoot Component={function ModelDetailPage} serverProvidedParams={{...}}>
+          <ModelDetailPage params={Promise} searchParams={Promise}>
+            <div className="min-h-scre...">
+              <AnimatedBackground>
+              <Navbar>
+              <main className="flex-1 py-8">
+                <div className="container ...">
+                  <LinkComponent>
+                  <div className="flex flex-...">
+                    <div className="flex-1">
+                      <div className="flex items...">
+                        <div>
+                        <div>
+                          <div className="flex items...">
+                            <h1>
+                            <Badge variant="outline" className="text-sm bg...">
+                              <span
+                                data-slot="badge"
++                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+-                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+                              >
++                               Breakout
+-                               Momentum
+                          ...
+                      ...
+                    ...
+                  ...
+              ...
+      ...
+
+[00:32:36.328] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:32:36.328] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:36.328] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/12","route":"/model/[id]"}
+[00:32:36.328] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664161690}
+[00:32:36.328] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/12 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/12","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664161690}
+[00:32:40.360] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664165609}
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:40.360] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.170] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664174548}
+[00:32:49.170] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.170] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:49.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.982] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664182305}
+[00:32:56.982] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.982] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:56.983] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.522] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/competitions color: rgb(120, 120, 120) color: inherit {"dp":"/competitions","o":"http://localhost:3000/competitions","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664183838}
+[00:32:58.524] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:58.527] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:59.870] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/marketplace color: rgb(120, 120, 120) color: inherit {"dp":"/marketplace","o":"http://localhost:3000/marketplace","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664185246}
+[00:32:59.870] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:32:59.870] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664188781}
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:03.429] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664211473}
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:33:26.124] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:23.436] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/marketplace color: rgb(120, 120, 120) color: inherit {"dp":"/marketplace","o":"http://localhost:3000/marketplace","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664268713}
+[00:34:23.436] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:23.436] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664275575}
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:34:30.267] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:37:13.310] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:37:13.916] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:37:13.916] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/models","route":"/models"}
+[00:37:13.916] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664439245}
+[00:37:13.916] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:37:13.916] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664511768}
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:38:26.472] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:43:46.952] Server  LOG      ✓ Compiled in 866ms
+[00:43:47.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:43:47.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:43:47.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:43:47.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:08.430] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:44:08.825] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:08.825] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:10.090] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:44:10.090] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:44:10.090] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664855237}
+[00:44:13.187] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664858458}
+[00:44:13.189] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.189] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.735] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.735] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.735] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.736] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.736] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:44:13.736] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:45:44.904] Server  LOG      ✓ Compiled in 468ms
+[00:45:45.888] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:45:45.888] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:45:45.888] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:45:45.888] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:22.971] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:46:23.612] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:23.612] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:23.612] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:46:23.612] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/models","route":"/models"}
+[00:46:23.612] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664988900}
+[00:46:26.180] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765664991354}
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:26.180] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665002301}
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.091] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:46:37.092] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:47:49.940] Server  LOG      ✓ Compiled in 768ms
+[00:47:51.465] Server  LOG      ✓ Compiled in 154ms
+[00:48:01.210] Server  LOG      ✓ Compiled in 2.5s
+[00:48:07.842] Server  LOG      ✓ Compiled in 432ms
+[00:48:08.918] Browser ERROR   uncaughtError: ReferenceError: loading is not defined
+[00:48:08.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "address", "components": null, "indexed": true, "name": "owner", "type": "address" }, { "arrayChildren": null, "arrayLength": null, "baseType": "string", "components": null, "indexed": null, "name": "modelURI", "type": "string" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "inferencePrice", "type": "uint256" } ], "name": "ModelRegistered", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:48:08.918] Browser ERROR   unhandledRejection: TypeError: unknown ProviderEvent (argument="event", value={ "fragment": { "anonymous": false, "inputs": [ { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": true, "name": "modelId", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "accuracy", "type": "uint256" }, { "arrayChildren": null, "arrayLength": null, "baseType": "uint256", "components": null, "indexed": null, "name": "totalInferences", "type": "uint256" } ], "name": "PerformanceUpdated", "type": "event" } }, code=INVALID_ARGUMENT, version=6.16.0)
+[00:48:10.339] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:48:10.350] Server  LOG      ✓ Compiled in 147ms
+[00:48:11.375] Server  ERROR    ⨯ ReferenceError: loading is not defined
+[00:48:11.383] Browser ERROR   uncaughtError: ReferenceError: loading is not defined
+[00:48:14.819] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:16.383] Browser ERROR   uncaughtError: Error: Switched to client rendering because the server rendering errored:
+
+loading is not defined
+[00:48:16.384] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:48:16.384] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/models","route":"/models"}
+[00:48:16.384] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665100345}
+[00:48:18.886] Browser ERROR   uncaughtError: ReferenceError: loading is not defined
+[00:48:26.535] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:27.482] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <SegmentViewNode type="page" pagePath="/agent-hed...">
+      <SegmentTrieNode>
+      <ClientPageRoot Component={function ModelsPage} serverProvidedParams={{...}}>
+        <ModelsPage params={Promise} searchParams={Promise}>
+          <div className="min-h-scre...">
+            <AnimatedBackground>
+            <Navbar>
+            <main className="flex-1 py-8">
+              <div className="container ...">
+                <div>
+                <div className="flex gap-8">
+                  <aside>
+                  <div className="flex-1">
+                    <div>
+                    <p>
+                    <div className="grid grid-...">
+                      <ModelCard model={{id:2,name:"Qua...", ...}}>
+                        <div className="group rela...">
+                          <div>
+                          <div className="relative">
+                            <div className="flex items...">
+                              <div className="flex items...">
+                                <div className="text-4xl">
++                                 🧠
+-                                 🎯
+                                ...
+                              ...
+                            ...
+                      ...
+            ...
+    ...
+
+[00:48:27.483] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:48:27.483] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/models","route":"/models"}
+[00:48:27.483] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/models color: rgb(120, 120, 120) color: inherit {"dp":"/models","o":"http://localhost:3000/models","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665112392}
+[00:48:38.141] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:38.147] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:38.149] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:38.153] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:38.909] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:39.258] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.261] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.275] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.278] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.282] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.285] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.290] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.294] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.299] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.302] Server  ERROR    ⨯ ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:48:39.906] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:39.906] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:40.894] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:40.894] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:49.549] Server  LOG      ✓ Compiled in 156ms
+[00:48:49.905] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:49.906] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:57.137] Server  LOG      ✓ Compiled in 148ms
+[00:48:57.901] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:48:57.901] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:03.232] Server  LOG      ✓ Compiled in 149ms
+[00:49:03.892] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:03.892] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:08.138] Server  LOG      ✓ Compiled in 241ms
+[00:49:08.904] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:08.904] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:09.990] Server  LOG      ✓ Compiled in 297ms
+[00:49:10.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:18:1
+Module not found: Can't resolve '@/hooks/use-competitions'
+  16 | import { formatEther } from "ethers"
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+> 18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { useModels } from "@/hooks/use-models"
+  20 | import toast from "react-hot-toast"
+  21 |
+
+Import map: aliased to relative './hooks/use-competitions' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:49:10.885] Browser ERROR   ./agent-hedge-fund/frontend/app/competitions/page.tsx:19:1
+Module not found: Can't resolve '@/hooks/use-models'
+  17 | import { Trophy, Clock, Users, Award, RefreshCw } from "lucide-react"
+  18 | import { useCompetitions, useCompetitionLeaderboard } from "@/hooks/use-competitions"
+> 19 | import { useModels } from "@/hooks/use-models"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  20 | import toast from "react-hot-toast"
+  21 |
+  22 | export default function CompetitionsPage() {
+
+Import map: aliased to relative './hooks/use-models' inside of [project]/agent-hedge-fund/frontend
+
+Import traces:
+  Client Component Browser:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component Browser]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Client Component SSR]
+    ./agent-hedge-fund/frontend/app/competitions/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:50:04.422] Server  LOG      ✓ Compiled in 173ms
+[00:50:42.258] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:42.259] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:42.259] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:42.259] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:42.974] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/2 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/2","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665247737}
+[00:50:53.307] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:53.311] Server  WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:55.261] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:55.658] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:55.658] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:55.659] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:55.659] Browser WARN    The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+[00:50:55.659] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerLayoutRouter url="/model/2" tree={[...]} params={{id:"2"}} cacheNode={{lazyData:null, ...}} segmentPath={[...]} ...>
+      <SegmentViewNode type="page" pagePath="/agent-hed...">
+        <SegmentTrieNode>
+        <ClientPageRoot Component={function ModelDetailPage} serverProvidedParams={{...}}>
+          <ModelDetailPage params={Promise} searchParams={Promise}>
+            <div className="min-h-scre...">
+              <AnimatedBackground>
+              <Navbar>
+              <main className="flex-1 py-8">
+                <div className="container ...">
+                  <LinkComponent>
+                  <div className="flex flex-...">
+                    <div className="flex-1">
+                      <div className="flex items...">
+                        <div>
+                        <div>
+                          <div className="flex items...">
+                            <h1>
+                            <Badge variant="outline" className="text-sm bg...">
+                              <span
+                                data-slot="badge"
++                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+-                               className={"inline-flex items-center justify-center rounded-md border px-2 py-0.5 fon..."}
+                              >
++                               Momentum
+-                               Arbitrage
+                          ...
+                      ...
+                    ...
+                  ...
+              ...
+      ...
+
+[00:50:55.878] Browser ERROR   {"code":-32603,"message":"Unexpected error"}
+[00:50:55.878] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:50:55.878] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/2","route":"/model/[id]"}
+[00:50:55.878] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/model/2","route":"/model/[id]"}
+[00:50:55.878] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/2 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/2","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665261075}
+[00:50:55.878] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/model/2 color: rgb(120, 120, 120) color: inherit {"dp":"/model/[id]","o":"http://localhost:3000/model/2","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1765665261075}

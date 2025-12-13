@@ -22,7 +22,7 @@ contract AISignalMarketplaceTest is Test {
 
     function setUp() public {
         owner = address(this);
-        modelOwner = address(0x1);
+        modelOwner = address(0x1001); // Use regular address, not precompile
         subscriber1 = address(0x2);
         subscriber2 = address(0x3);
 
@@ -34,7 +34,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_SetModelPricing() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -48,7 +48,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_SetModelPricing_NotOwner() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(subscriber1);
         vm.expectRevert("Not model owner");
@@ -57,7 +57,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_Subscribe() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -91,7 +91,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_Subscribe_MultipleMonths() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -110,7 +110,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_Subscribe_ExtendExisting() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -147,7 +147,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_Subscribe_InvalidDuration() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -165,7 +165,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_Subscribe_ModelNotAvailable() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         paymentToken.mint(subscriber1, 1000 ether);
         
@@ -178,7 +178,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_PublishSignal() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         // Need to ensure model has at least one inference
         vm.startPrank(modelOwner);
@@ -208,7 +208,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_PublishSignal_NotOwner() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(subscriber1);
         vm.expectRevert("Not model owner");
@@ -217,7 +217,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_PublishSignal_InvalidConfidence() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         vm.deal(modelOwner, 1 ether);
@@ -232,7 +232,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_PurchaseSignal() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -263,7 +263,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_PurchaseSignal_InvalidIndex() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -279,7 +279,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_HasActiveSubscription() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -302,7 +302,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_GetLatestSignals() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         vm.deal(modelOwner, 3 ether);
@@ -331,7 +331,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_CancelSubscription() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);
@@ -359,7 +359,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_CancelSubscription_NoActive() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(subscriber1);
         vm.expectRevert("No active subscription");
@@ -368,7 +368,7 @@ contract AISignalMarketplaceTest is Test {
 
     function test_WithdrawPlatformFees() public {
         vm.prank(modelOwner);
-        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether);
+        uint256 modelId = registry.registerModel("ipfs://model1", 1 ether, 1e15);
 
         vm.prank(modelOwner);
         marketplace.setModelPricing(modelId, 100 ether, 10 ether);

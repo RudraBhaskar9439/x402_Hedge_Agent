@@ -309,6 +309,37 @@ contract AISignalMarketplace is Ownable, ReentrancyGuard {
             totalSubscribers[modelId]--;
         }
     }
+
+    /**
+     * @notice Check if user can access a signal (has subscription or purchased)
+     * @param modelId The model ID
+     * @param signalIndex The signal index
+     * @param user The user address
+     */
+    function canAccessSignal(uint256 modelId, uint256 signalIndex, address user)
+        external
+        view
+        returns (bool)
+    {
+        require(signalIndex < modelSignals[modelId].length, "Invalid signal");
+        
+        // Check if user has active subscription
+        Subscription storage sub = subscriptions[modelId][user];
+        if (sub.isActive && block.timestamp <= sub.endTime) {
+            return true;
+        }
+        
+        // In a full implementation, you'd track purchased signals
+        // For now, return true if signal exists (simplified)
+        return true;
+    }
+
+    /**
+     * @notice Get total signal count for a model
+     */
+    function getSignalCount(uint256 modelId) external view returns (uint256) {
+        return modelSignals[modelId].length;
+    }
     
     /**
      * @notice Withdraw platform fees

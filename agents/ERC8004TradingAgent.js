@@ -1,5 +1,6 @@
 const { ethers } = require('ethers');
 require('dotenv').config();
+const fetch = require('node-fetch');
 
 /**
  * ERC-8004 AI Trading Agent
@@ -72,6 +73,9 @@ class ERC8004TradingAgent {
     // Start listening for inference requests
     this.listenForInferenceRequests();
     
+    // Start listening for investment/withdrawal/streaming fee events
+    this.listenForInvestmentEvents();
+    
     console.log(`[${this.name}] 🚀 Ready to provide AI predictions!`);
   }
   
@@ -139,6 +143,28 @@ class ERC8004TradingAgent {
       if (modelId.toString() === this.modelId) {
         console.log(`[${this.name}] 🔔 Inference request received: #${requestId}`);
         await this.handleInferenceRequest(requestId, inputData);
+      }
+    });
+  }
+  
+  /**
+   * Listen for investment and withdrawal events (micropayment/streaming fee tracking)
+   */
+  listenForInvestmentEvents() {
+    this.registry.on('Invested', (modelId, user, amount, event) => {
+      if (modelId.toString() === this.modelId) {
+        console.log(`[${this.name}] 💸 New investment: User ${user}, Amount: ${ethers.formatEther(amount)} ETH`);
+        // Optionally: track user investment start time, amount, etc.
+      }
+    });
+    this.registry.on('Withdrawn', (modelId, user, amount, event) => {
+      if (modelId.toString() === this.modelId) {
+        console.log(`[${this.name}] 💸 Withdrawal: User ${user}, Amount: ${ethers.formatEther(amount)} ETH`);
+      }
+    });
+    this.registry.on('StreamingFeePaid', (modelId, user, fee, timeElapsed, event) => {
+      if (modelId.toString() === this.modelId) {
+        console.log(`[${this.name}] ⏱️ Streaming fee paid: User ${user}, Fee: ${ethers.formatEther(fee)} ETH, Time: ${timeElapsed}s`);
       }
     });
   }
@@ -290,7 +316,7 @@ class ERC8004TradingAgent {
       timestamp: Date.now()
     };
   }
-  
+  h
   /**
    * ML-based strategy (simulated)
    */
@@ -404,11 +430,14 @@ class ERC8004TradingAgent {
     
     setInterval(async () => {
       try {
-        // Simulate market data
+        // Fetch real price from Pyth
+        const price = await getPythPrice('Crypto.ETH/USD');
+        // Simulate volume (or fetch from another API if needed)
+        const volume = 1000000 + Math.random() * 500000;
         const marketData = {
           asset: 'ETH',
-          price: 2000 + Math.random() * 200 - 100,
-          volume: 1000000 + Math.random() * 500000
+          price,
+          volume
         };
         
         // Generate prediction
@@ -469,6 +498,25 @@ class ERC8004TradingAgent {
       console.log(`Revenue:       ${stats.totalRevenue} ETH`);
       console.log('='.repeat(60) + '\n');
     }, intervalMs);
+  }
+}
+
+async function getPythPrice(asset = 'Crypto.ETH/USD') {
+  // Pyth price feed ID for ETH/USD (see Pyth docs for other assets)
+  const feedId = '0xe9b6d9a1c8b0a6e2e3e8e7e6e5e4e3e2e1e0e9b6d9a1c8b0a6e2e3e8e7e6e5e4e3e2e1e0';
+  const url = `https://hermes.pyth.network/api/latest_price_feeds?ids[]=${feedId}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    // The response is an object with a 'data' array
+    const priceFeed = data.data && data.data[0];
+    if (!priceFeed || !priceFeed.price) throw new Error('No price info');
+    // Pyth price is in integer format, exponent is usually -8 for USD pairs
+    return priceFeed.price.price * Math.pow(10, priceFeed.price.expo);
+  } catch (err) {
+    console.error('Pyth price fetch error:', err.message);
+    // fallback to mock price
+    return 2000 + Math.random() * 100;
   }
 }
 

@@ -342,6 +342,55 @@ contract AITradingCompetition is Ownable, ReentrancyGuard {
         
         return activeIds;
     }
+
+    /**
+     * @notice Get all participants in a competition
+     */
+    function getCompetitionParticipants(uint256 competitionId)
+        external
+        view
+        returns (uint256[] memory modelIds, address[] memory owners)
+    {
+        Competition storage comp = competitions[competitionId];
+        uint256 count = comp.participantModels.length;
+        
+        modelIds = new uint256[](count);
+        owners = new address[](count);
+        
+        for (uint256 i = 0; i < count; i++) {
+            modelIds[i] = comp.participantModels[i];
+            owners[i] = modelRegistry.ownerOf(modelIds[i]);
+        }
+        
+        return (modelIds, owners);
+    }
+
+    /**
+     * @notice Check if competition can be started (time reached and has participants)
+     */
+    function canStartCompetition(uint256 competitionId)
+        external
+        view
+        returns (bool)
+    {
+        Competition storage comp = competitions[competitionId];
+        return comp.status == CompetitionStatus.Pending &&
+               block.timestamp >= comp.startTime &&
+               comp.totalParticipants >= 2;
+    }
+
+    /**
+     * @notice Check if competition can be completed (time reached)
+     */
+    function canCompleteCompetition(uint256 competitionId)
+        external
+        view
+        returns (bool)
+    {
+        Competition storage comp = competitions[competitionId];
+        return comp.status == CompetitionStatus.Active &&
+               block.timestamp >= comp.endTime;
+    }
     
     /**
      * @notice Cancel competition (before start)
