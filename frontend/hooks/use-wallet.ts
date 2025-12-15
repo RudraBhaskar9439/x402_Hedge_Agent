@@ -12,6 +12,28 @@ interface WalletState {
   isCorrectChain: boolean
 }
 
+/**
+ * Get the MetaMask provider, prioritizing it over other wallets
+ */
+function getMetaMaskProvider() {
+  if (typeof window === "undefined") return null
+
+  // Check if MetaMask is available
+  if (window.ethereum?.isMetaMask) {
+    return window.ethereum
+  }
+
+  // Check for multiple providers (e.g., MetaMask + Phantom)
+  if ((window.ethereum as any)?.providers) {
+    const providers = (window.ethereum as any).providers
+    const metamask = providers.find((p: any) => p.isMetaMask)
+    if (metamask) return metamask
+  }
+
+  // Fallback to window.ethereum
+  return window.ethereum
+}
+
 export function useWallet() {
   const [state, setState] = useState<WalletState>({
     address: null,
@@ -21,10 +43,11 @@ export function useWallet() {
   })
 
   const checkConnection = useCallback(async () => {
-    if (typeof window === "undefined" || !window.ethereum) return
+    const provider = getMetaMaskProvider()
+    if (!provider) return
 
     try {
-      const accounts = (await window.ethereum.request({
+      const accounts = (await provider.request({
         method: "eth_accounts",
       })) as string[]
 
@@ -45,7 +68,23 @@ export function useWallet() {
     setState((prev) => ({ ...prev, isConnecting: true }))
 
     try {
+      // Check if MetaMask is available
+      const provider = getMetaMaskProvider()
+
+      if (!provider) {
+        toast.error("MetaMask not found. Please install MetaMask extension.")
+        setState((prev) => ({ ...prev, isConnecting: false }))
+        return
+      }
+
       const address = await connectWallet()
+
+      if (!address) {
+        toast.error("No account found. Please unlock your MetaMask wallet.")
+        setState((prev) => ({ ...prev, isConnecting: false }))
+        return
+      }
+
       const chainId = await getCurrentChainId()
 
       if (chainId !== CHAIN_ID) {
@@ -68,7 +107,11 @@ export function useWallet() {
       })
     } catch (error: unknown) {
       const err = error as Error
-      toast.error(err.message || "Failed to connect")
+      console.error("Wallet connection error:", error)
+
+      // Show error message (user rejections return null, not throw)
+      toast.error(err.message || "Failed to connect wallet")
+
       setState((prev) => ({ ...prev, isConnecting: false }))
     }
   }, [])
@@ -101,7 +144,8 @@ export function useWallet() {
   useEffect(() => {
     checkConnection()
 
-    if (typeof window !== "undefined" && window.ethereum) {
+    const provider = getMetaMaskProvider()
+    if (provider) {
       const handleAccountsChanged = (accounts: unknown) => {
         const accs = accounts as string[]
         setState((prev) => ({
@@ -119,12 +163,12 @@ export function useWallet() {
         }))
       }
 
-      window.ethereum.on("accountsChanged", handleAccountsChanged)
-      window.ethereum.on("chainChanged", handleChainChanged)
+      provider.on("accountsChanged", handleAccountsChanged)
+      provider.on("chainChanged", handleChainChanged)
 
       return () => {
-        window.ethereum?.removeListener("accountsChanged", handleAccountsChanged)
-        window.ethereum?.removeListener("chainChanged", handleChainChanged)
+        provider.removeListener?.("accountsChanged", handleAccountsChanged)
+        provider.removeListener?.("chainChanged", handleChainChanged)
       }
     }
   }, [checkConnection])

@@ -52,9 +52,7 @@ contract DeployLocalScript is Script {
         
         // 4. Deploy AITradingCompetition
         console.log("\n[4/4] Deploying AITradingCompetition...");
-        AITradingCompetition competition = new AITradingCompetition(
-            address(registry)
-        );
+        AITradingCompetition competition = new AITradingCompetition(address(registry));
         console.log("[OK] AITradingCompetition:", address(competition));
         
         vm.stopBroadcast();

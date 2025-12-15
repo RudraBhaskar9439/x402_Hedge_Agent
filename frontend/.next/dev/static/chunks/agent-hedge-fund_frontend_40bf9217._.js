@@ -24,7 +24,9 @@ __turbopack_context__.s([
     "generateMockModels",
     ()=>generateMockModels,
     "generateMockSignals",
-    ()=>generateMockSignals
+    ()=>generateMockSignals,
+    "parseEther",
+    ()=>parseEther
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/clsx/dist/clsx.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/tailwind-merge/dist/bundle-mjs.mjs [app-client] (ecmascript)");
@@ -42,6 +44,10 @@ function formatAddress(address) {
 function formatEth(wei) {
     const eth = typeof wei === "bigint" ? Number(wei) / 1e18 : wei;
     return `${eth.toFixed(4)} ETH`;
+}
+function parseEther(eth) {
+    const ethNum = typeof eth === "string" ? parseFloat(eth) : eth;
+    return BigInt(Math.floor(ethNum * 1e18));
 }
 function formatUSD(amount) {
     return new Intl.NumberFormat("en-US", {
@@ -71,6 +77,11 @@ function formatNumber(value) {
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text);
     __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Copied to clipboard!");
+}
+// Deterministic pseudo-random number generator
+function pseudoRandom(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
 }
 function generateMockModels(count) {
     const names = [
@@ -123,22 +134,28 @@ function generateMockModels(count) {
     ];
     return Array.from({
         length: count
-    }, (_, i)=>({
+    }, (_, i)=>{
+        // sead based on index i to ensure consistency across renders
+        const r1 = pseudoRandom(i * 13.37);
+        const r2 = pseudoRandom(i * 7.11 + 100);
+        const r3 = pseudoRandom(i * 3.14 + 200);
+        return {
             id: i + 1,
             name: names[i % names.length],
-            owner: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
-            strategy: strategies[Math.floor(Math.random() * strategies.length)],
-            accuracy: 55 + Math.random() * 40,
-            totalInferences: Math.floor(100 + Math.random() * 10000),
-            revenue: Math.random() * 50,
-            subscribers: Math.floor(10 + Math.random() * 500),
+            owner: `0x${Math.floor(r1 * 10000000).toString(16).padEnd(8, "0")}...${Math.floor(r2 * 10000).toString(16).padEnd(4, "0")}`,
+            strategy: strategies[Math.floor(r1 * strategies.length)],
+            accuracy: 55 + r2 * 40,
+            totalInferences: Math.floor(100 + r3 * 10000),
+            revenue: r1 * 50,
+            subscribers: Math.floor(10 + r2 * 500),
             icon: icons[i % icons.length],
-            inferencePrice: BigInt(Math.floor(0.001 * 1e18 + Math.random() * 0.01 * 1e18)),
+            inferencePrice: BigInt(Math.floor(0.001 * 1e18 + r3 * 0.01 * 1e18)),
             latestSignal: {
-                action: actions[Math.floor(Math.random() * actions.length)],
-                asset: assets[Math.floor(Math.random() * assets.length)]
+                action: actions[Math.floor(r1 * actions.length)],
+                asset: assets[Math.floor(r2 * assets.length)]
             }
-        }));
+        };
+    });
 }
 function generateMockCompetitions(count) {
     const names = [
@@ -158,6 +175,9 @@ function generateMockCompetitions(count) {
             "ended"
         ];
         const currentStatus = status[i % 3];
+        // deterministic randoms
+        const r1 = pseudoRandom(i * 42.1);
+        const r2 = pseudoRandom(i * 19.9 + 50);
         let startTime, endTime;
         if (currentStatus === "active") {
             startTime = now - 86400 * 3;
@@ -174,9 +194,9 @@ function generateMockCompetitions(count) {
             name: names[i % names.length],
             startTime,
             endTime,
-            prizePool: BigInt(Math.floor((5 + Math.random() * 20) * 1e18)),
-            entryFee: BigInt(Math.floor((0.05 + Math.random() * 0.2) * 1e18)),
-            participants: Math.floor(10 + Math.random() * 100),
+            prizePool: BigInt(Math.floor((5 + r1 * 20) * 1e18)),
+            entryFee: BigInt(Math.floor((0.05 + r2 * 0.2) * 1e18)),
+            participants: Math.floor(10 + r1 * 100),
             status: currentStatus
         };
     });
@@ -199,18 +219,23 @@ function generateMockSignals(count) {
     const now = Date.now() / 1000;
     return Array.from({
         length: count
-    }, (_, i)=>({
+    }, (_, i)=>{
+        const r1 = pseudoRandom(i * 123.45);
+        const r2 = pseudoRandom(i * 67.89 + 1000);
+        const r3 = pseudoRandom(i * 99.99 + 2000);
+        return {
             id: i + 1,
-            timestamp: now - Math.random() * 86400 * 7,
-            asset: assets[Math.floor(Math.random() * assets.length)],
-            action: actions[Math.floor(Math.random() * actions.length)],
-            targetPrice: BigInt(Math.floor((1000 + Math.random() * 5000) * 1e18)),
-            stopLoss: BigInt(Math.floor((800 + Math.random() * 4000) * 1e18)),
-            confidence: 60 + Math.random() * 35,
-            isActive: Math.random() > 0.3,
-            outcome: Math.random() > 0.5 ? "profit" : Math.random() > 0.5 ? "loss" : null,
-            pnl: (Math.random() - 0.5) * 20
-        }));
+            timestamp: now - r1 * 86400 * 7,
+            asset: assets[Math.floor(r1 * assets.length)],
+            action: actions[Math.floor(r2 * actions.length)],
+            targetPrice: BigInt(Math.floor((1000 + r3 * 5000) * 1e18)),
+            stopLoss: BigInt(Math.floor((800 + r1 * 4000) * 1e18)),
+            confidence: 60 + r2 * 35,
+            isActive: r3 > 0.3,
+            outcome: r1 > 0.5 ? "profit" : r2 > 0.5 ? "loss" : null,
+            pnl: (r3 - 0.5) * 20
+        };
+    });
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -220,7 +245,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "use strict";
 
 // Contract ABIs and addresses for ERC-8004 AI Hedge Fund Protocol
-// Network configuration
 __turbopack_context__.s([
     "BASE_SEPOLIA_RPC",
     ()=>BASE_SEPOLIA_RPC,
@@ -230,24 +254,20 @@ __turbopack_context__.s([
     ()=>COMPETITION_ABI,
     "CONTRACTS",
     ()=>CONTRACTS,
-    "LOCAL_RPC",
-    ()=>LOCAL_RPC,
     "MARKETPLACE_ABI",
     ()=>MARKETPLACE_ABI,
     "REGISTRY_ABI",
     ()=>REGISTRY_ABI
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
-const CHAIN_ID = ("TURBOPACK compile-time truthy", 1) ? parseInt(("TURBOPACK compile-time value", "31337")) : "TURBOPACK unreachable" // Default to local
+const CHAIN_ID = 84532 // Base Sepolia
 ;
-const BASE_SEPOLIA_RPC = ("TURBOPACK compile-time value", "http://localhost:8545") || "http://localhost:8545";
-const LOCAL_RPC = "http://localhost:8545";
+const BASE_SEPOLIA_RPC = ("TURBOPACK compile-time value", "https://sepolia.base.org") || "https://sepolia.base.org";
 const CONTRACTS = {
-    // Local Anvil deployment addresses
-    REGISTRY: ("TURBOPACK compile-time value", "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9") || "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
-    MARKETPLACE: ("TURBOPACK compile-time value", "0x0165878a594ca255338adfa4d48449f69242eb8f") || "0x0165878a594ca255338adfa4d48449f69242eb8f",
-    COMPETITION: ("TURBOPACK compile-time value", "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853") || "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
-    PAYMENT_TOKEN: __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS || "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707"
+    REGISTRY: ("TURBOPACK compile-time value", "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9") || "0x0000000000000000000000000000000000000000",
+    MARKETPLACE: ("TURBOPACK compile-time value", "0x0165878a594ca255338adfa4d48449f69242eb8f") || "0x0000000000000000000000000000000000000000",
+    COMPETITION: ("TURBOPACK compile-time value", "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853") || "0x0000000000000000000000000000000000000000",
+    X402_MICROPAYMENT: __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_X402_ADDRESS || "0x0000000000000000000000000000000000000000"
 };
 const REGISTRY_ABI = [
     // View Functions
@@ -255,67 +275,33 @@ const REGISTRY_ABI = [
     "function getModelMetrics(uint256 modelId) view returns (uint256 correctPredictions, uint256 totalPredictions, int256 totalPnL, uint256 totalRevenue, uint256 accuracy)",
     "function getTopModels(uint256 count) view returns (uint256[] modelIds, uint256[] accuracies)",
     "function getInferenceResult(uint256 requestId) view returns (uint256 modelId, address requester, bytes outputData, uint256 confidence, uint256 timestamp)",
-    "function getInvestmentInfo(uint256 modelId, address user) view returns (uint256 amount, uint256 lastInvestTimestamp, uint256 currentStreamingFee)",
-    "function nextModelId() view returns (uint256)",
+    "function totalModels() view returns (uint256)",
     "function ownerOf(uint256 tokenId) view returns (address)",
-    "function investments(uint256 modelId, address user) view returns (uint256 amount, uint256 lastInvestTimestamp)",
     // Write Functions
-    "function registerModel(string modelURI, uint256 inferencePrice, uint256 streamingRate) returns (uint256 modelId)",
+    "function registerModel(string modelURI, uint256 inferencePrice) returns (uint256 modelId)",
     "function requestInference(uint256 modelId, bytes inputData) payable returns (uint256 requestId)",
     "function submitInference(uint256 requestId, bytes outputData, uint256 confidence)",
-    "function updateModelPerformance(uint256 requestId, bool wasCorrect, int256 actualPnL)",
-    "function invest(uint256 modelId) payable",
-    "function withdraw(uint256 modelId, uint256 amount)",
-    // Events
-    "event ModelRegistered(uint256 indexed modelId, address indexed owner, string modelURI, uint256 inferencePrice)",
-    "event InferenceRequested(uint256 indexed requestId, uint256 indexed modelId, address indexed requester, bytes inputData)",
-    "event InferenceCompleted(uint256 indexed requestId, uint256 indexed modelId, bytes outputData, uint256 confidence)",
-    "event PerformanceUpdated(uint256 indexed modelId, uint256 accuracy, uint256 totalInferences)",
-    "event Invested(uint256 indexed modelId, address indexed user, uint256 amount)",
-    "event Withdrawn(uint256 indexed modelId, address indexed user, uint256 amount)"
+    "function updateModelPerformance(uint256 requestId, bool wasCorrect, int256 actualPnL)"
 ];
 const MARKETPLACE_ABI = [
     // View Functions
-    "function getLatestSignals(uint256 modelId, uint256 count) view returns (tuple(uint256 modelId, uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData)[] signals)",
-    "function getSignal(uint256 modelId, uint256 index) view returns (tuple(uint256 modelId, uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData) signal)",
-    "function getSignalCount(uint256 modelId) view returns (uint256)",
+    "function getLatestSignals(uint256 modelId, uint256 count) view returns (tuple(uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bool isActive)[] signals)",
     "function getModelStats(uint256 modelId) view returns (uint256 subscribers, uint256 signals, uint256 monthlyPrice, uint256 signalPrice)",
     "function hasActiveSubscription(uint256 modelId, address user) view returns (bool)",
-    "function getSubscription(uint256 modelId, address user) view returns (uint256 startTime, uint256 endTime, uint256 signalsReceived, bool isActive)",
-    "function canAccessSignal(uint256 modelId, uint256 signalIndex, address user) view returns (bool)",
+    "function totalSignals() view returns (uint256)",
     // Write Functions
-    "function setModelPricing(uint256 modelId, uint256 monthlyPrice, uint256 signalPrice)",
-    "function subscribe(uint256 modelId, uint256 months)",
-    "function purchaseSignal(uint256 modelId, uint256 signalIndex)",
-    "function publishSignal(uint256 modelId, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData)",
-    "function cancelSubscription(uint256 modelId)",
-    // Events
-    "event Subscribed(uint256 indexed modelId, address indexed subscriber, uint256 duration)",
-    "event SignalPublished(uint256 indexed modelId, string asset, string action, uint256 confidence, uint256 timestamp)",
-    "event SignalPurchased(uint256 indexed modelId, address indexed buyer, uint256 price)"
+    "function subscribe(uint256 modelId, uint256 months) payable",
+    "function purchaseSignal(uint256 modelId, uint256 signalIndex) payable",
+    "function publishSignal(uint256 modelId, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence)"
 ];
 const COMPETITION_ABI = [
     // View Functions
-    "function getCompetition(uint256 competitionId) view returns (tuple(uint256 id, string name, uint256 startTime, uint256 endTime, uint256 entryFee, uint256 prizePool, uint8 status, uint256[] participantModels, uint256 winnerModelId, uint256 totalParticipants) competition)",
     "function getLeaderboard(uint256 competitionId) view returns (uint256[] modelIds, uint256[] scores)",
     "function getModelScore(uint256 competitionId, uint256 modelId) view returns (uint256 correctPredictions, uint256 totalPredictions, int256 totalPnL, uint256 finalScore)",
-    "function getActiveCompetitions() view returns (uint256[] activeIds)",
-    "function getCompetitionParticipants(uint256 competitionId) view returns (uint256[] modelIds, address[] owners)",
-    "function canStartCompetition(uint256 competitionId) view returns (bool)",
-    "function canCompleteCompetition(uint256 competitionId) view returns (bool)",
-    "function competitionCount() view returns (uint256)",
-    "function hasEntered(uint256 competitionId, uint256 modelId) view returns (bool)",
+    "function getActiveCompetitions() view returns (uint256[] competitionIds)",
+    "function getCompetitionInfo(uint256 competitionId) view returns (string name, uint256 startTime, uint256 endTime, uint256 prizePool, uint256 entryFee, uint256 participants)",
     // Write Functions
-    "function createCompetition(string name, uint256 startTime, uint256 duration, uint256 entryFee) returns (uint256)",
-    "function enterCompetition(uint256 competitionId, uint256 modelId) payable",
-    "function startCompetition(uint256 competitionId)",
-    "function recordPrediction(uint256 competitionId, uint256 modelId, bool wasCorrect, int256 pnl)",
-    "function completeCompetition(uint256 competitionId)",
-    "function cancelCompetition(uint256 competitionId)",
-    // Events
-    "event CompetitionCreated(uint256 indexed competitionId, string name, uint256 startTime, uint256 endTime)",
-    "event ModelEntered(uint256 indexed competitionId, uint256 indexed modelId, address indexed owner)",
-    "event CompetitionCompleted(uint256 indexed competitionId, uint256 indexed winnerModelId, uint256 prize)"
+    "function enterCompetition(uint256 competitionId, uint256 modelId) payable"
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -342,7 +328,6 @@ __turbopack_context__.s([
     "switchToBaseSepolia",
     ()=>switchToBaseSepolia
 ]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$browser$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/ethers/lib.esm/providers/provider-browser.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$jsonrpc$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/ethers/lib.esm/providers/provider-jsonrpc.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$contract$2f$contract$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/ethers/lib.esm/contract/contract.js [app-client] (ecmascript)");
@@ -350,17 +335,93 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$fr
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/lib/contracts.ts [app-client] (ecmascript)");
 ;
 ;
+/**
+ * Get the MetaMask provider, prioritizing it over other wallets
+ */ function getMetaMaskProvider() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    // Check if MetaMask is available
+    if (window.ethereum?.isMetaMask) {
+        return window.ethereum;
+    }
+    // Check for multiple providers (e.g., MetaMask + Phantom)
+    if (window.ethereum?.providers) {
+        const providers = window.ethereum.providers;
+        const metamask = providers.find((p)=>p.isMetaMask);
+        if (metamask) return metamask;
+    }
+    // Fallback to window.ethereum
+    return window.ethereum;
+}
 async function connectWallet() {
-    if (("TURBOPACK compile-time value", "object") === "undefined" || !window.ethereum) {
-        throw new Error("MetaMask not installed");
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    const provider = getMetaMaskProvider();
+    if (!provider) {
+        throw new Error("MetaMask not found. Please install MetaMask extension.");
     }
     try {
-        const accounts = await window.ethereum.request({
+        // First check if already connected
+        const existingAccounts = await provider.request({
+            method: "eth_accounts"
+        });
+        if (existingAccounts && existingAccounts.length > 0) {
+            return existingAccounts[0];
+        }
+        // Request connection
+        const accounts = await provider.request({
             method: "eth_requestAccounts"
         });
+        if (!accounts || accounts.length === 0) {
+            throw new Error("No accounts found. Please unlock your wallet.");
+        }
         return accounts[0] || null;
-    } catch  {
-        throw new Error("User rejected connection");
+    } catch (error) {
+        // Handle specific error types
+        if (error && typeof error === "object" && "code" in error) {
+            const errorCode = error.code;
+            // User rejected the connection request (4001)
+            if (errorCode === 4001) {
+                // Don't throw for user rejection - it's intentional
+                return null;
+            }
+            // Request already pending (-32002)
+            if (errorCode === -32002) {
+                throw new Error("Connection request already pending. Please check your wallet and approve the request.");
+            }
+            // Unauthorized (4100)
+            if (errorCode === 4100) {
+                throw new Error("Unauthorized. Please unlock your wallet and try again.");
+            }
+            // Unsupported method (4200)
+            if (errorCode === 4200) {
+                throw new Error("Unsupported method. Please update your wallet to the latest version.");
+            }
+            // Disconnected (4900)
+            if (errorCode === 4900) {
+                throw new Error("Wallet disconnected. Please reconnect your wallet.");
+            }
+            // Chain disconnected (4901)
+            if (errorCode === 4901) {
+                throw new Error("Chain disconnected. Please switch to a supported network.");
+            }
+        }
+        // Handle error messages
+        if (error && typeof error === "object" && "message" in error) {
+            const errorMessage = error.message.toLowerCase();
+            // User rejection - return null silently
+            if (errorMessage.includes("reject") || errorMessage.includes("denied") || errorMessage.includes("user rejected")) {
+                return null;
+            }
+            // Pending request
+            if (errorMessage.includes("already pending") || errorMessage.includes("pending")) {
+                throw new Error("Connection request already pending. Please check your wallet.");
+            }
+            // Return the original error message if it's informative
+            throw new Error(error.message);
+        }
+        // Generic fallback
+        throw new Error("Failed to connect wallet. Please try again.");
     }
 }
 async function switchToBaseSepolia() {
@@ -421,9 +482,7 @@ async function getCurrentChainId() {
     }
 }
 function getProvider() {
-    // Use local RPC if on local network, otherwise use Base Sepolia
-    const rpcUrl = ("TURBOPACK compile-time truthy", 1) ? "http://localhost:8545" : "TURBOPACK unreachable";
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$jsonrpc$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["JsonRpcProvider"](rpcUrl);
+    return new __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$jsonrpc$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["JsonRpcProvider"](__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BASE_SEPOLIA_RPC"]);
 }
 async function getBrowserProvider() {
     if (!window.ethereum) return null;
@@ -460,6 +519,24 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+/**
+ * Get the MetaMask provider, prioritizing it over other wallets
+ */ function getMetaMaskProvider() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    // Check if MetaMask is available
+    if (window.ethereum?.isMetaMask) {
+        return window.ethereum;
+    }
+    // Check for multiple providers (e.g., MetaMask + Phantom)
+    if (window.ethereum?.providers) {
+        const providers = window.ethereum.providers;
+        const metamask = providers.find((p)=>p.isMetaMask);
+        if (metamask) return metamask;
+    }
+    // Fallback to window.ethereum
+    return window.ethereum;
+}
 function useWallet() {
     _s();
     const [state, setState] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
@@ -470,9 +547,10 @@ function useWallet() {
     });
     const checkConnection = (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useWallet.useCallback[checkConnection]": async ()=>{
-            if (("TURBOPACK compile-time value", "object") === "undefined" || !window.ethereum) return;
+            const provider = getMetaMaskProvider();
+            if (!provider) return;
             try {
-                const accounts = await window.ethereum.request({
+                const accounts = await provider.request({
                     method: "eth_accounts"
                 });
                 const chainId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["getCurrentChainId"])();
@@ -498,7 +576,29 @@ function useWallet() {
                     })
             }["useWallet.useCallback[connect]"]);
             try {
+                // Check if MetaMask is available
+                const provider = getMetaMaskProvider();
+                if (!provider) {
+                    __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("MetaMask not found. Please install MetaMask extension.");
+                    setState({
+                        "useWallet.useCallback[connect]": (prev)=>({
+                                ...prev,
+                                isConnecting: false
+                            })
+                    }["useWallet.useCallback[connect]"]);
+                    return;
+                }
                 const address = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["connectWallet"])();
+                if (!address) {
+                    __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("No account found. Please unlock your MetaMask wallet.");
+                    setState({
+                        "useWallet.useCallback[connect]": (prev)=>({
+                                ...prev,
+                                isConnecting: false
+                            })
+                    }["useWallet.useCallback[connect]"]);
+                    return;
+                }
                 const chainId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["getCurrentChainId"])();
                 if (chainId !== __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CHAIN_ID"]) {
                     __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].loading("Switching to Base Sepolia...");
@@ -519,7 +619,9 @@ function useWallet() {
                 });
             } catch (error) {
                 const err = error;
-                __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error(err.message || "Failed to connect");
+                console.error("Wallet connection error:", error);
+                // Show error message (user rejections return null, not throw)
+                __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error(err.message || "Failed to connect wallet");
                 setState({
                     "useWallet.useCallback[connect]": (prev)=>({
                             ...prev,
@@ -561,7 +663,8 @@ function useWallet() {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useWallet.useEffect": ()=>{
             checkConnection();
-            if (("TURBOPACK compile-time value", "object") !== "undefined" && window.ethereum) {
+            const provider = getMetaMaskProvider();
+            if (provider) {
                 const handleAccountsChanged = {
                     "useWallet.useEffect.handleAccountsChanged": (accounts)=>{
                         const accs = accounts;
@@ -585,12 +688,12 @@ function useWallet() {
                         }["useWallet.useEffect.handleChainChanged"]);
                     }
                 }["useWallet.useEffect.handleChainChanged"];
-                window.ethereum.on("accountsChanged", handleAccountsChanged);
-                window.ethereum.on("chainChanged", handleChainChanged);
+                provider.on("accountsChanged", handleAccountsChanged);
+                provider.on("chainChanged", handleChainChanged);
                 return ({
                     "useWallet.useEffect": ()=>{
-                        window.ethereum?.removeListener("accountsChanged", handleAccountsChanged);
-                        window.ethereum?.removeListener("chainChanged", handleChainChanged);
+                        provider.removeListener?.("accountsChanged", handleAccountsChanged);
+                        provider.removeListener?.("chainChanged", handleChainChanged);
                     }
                 })["useWallet.useEffect"];
             }
@@ -3880,17 +3983,21 @@ function DashboardPage() {
     };
     const activeCompetition = competitions.find((c)=>c.status === "active");
     const selectedModelData = models.find((m)=>m.id === selectedModel);
+    // Calculate stats
+    const totalModels = models.length;
+    const totalInferences = models.reduce((acc, m)=>acc + m.totalInferences, 0);
+    const totalVolume = models.reduce((acc, m)=>acc + m.revenue, 0);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen flex flex-col",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$animated$2d$background$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatedBackground"], {}, void 0, false, {
                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                lineNumber: 57,
+                lineNumber: 62,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Navbar"], {}, void 0, false, {
                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                lineNumber: 58,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3911,7 +4018,7 @@ function DashboardPage() {
                                                 children: "ERC-8004"
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 66,
+                                                lineNumber: 71,
                                                 columnNumber: 17
                                             }, this),
                                             " ",
@@ -3920,13 +4027,13 @@ function DashboardPage() {
                                                 children: "AI Hedge Fund"
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 66,
+                                                lineNumber: 71,
                                                 columnNumber: 65
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                        lineNumber: 65,
+                                        lineNumber: 70,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3934,7 +4041,7 @@ function DashboardPage() {
                                         children: "Where AI Trading Models Are NFTs That Earn From Predictions. On-chain, verifiable, trustless."
                                     }, void 0, false, {
                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 73,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3952,18 +4059,18 @@ function DashboardPage() {
                                                             className: "w-4 h-4 ml-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                            lineNumber: 75,
+                                                            lineNumber: 80,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 73,
+                                                    lineNumber: 78,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 72,
+                                                lineNumber: 77,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3976,18 +4083,18 @@ function DashboardPage() {
                                                     children: "Join Competition"
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 79,
+                                                    lineNumber: 84,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 78,
+                                                lineNumber: 83,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                        lineNumber: 71,
+                                        lineNumber: 76,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4003,7 +4110,7 @@ function DashboardPage() {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 85,
+                                                lineNumber: 90,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$stat$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["StatCard"], {
@@ -4016,7 +4123,7 @@ function DashboardPage() {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 91,
+                                                lineNumber: 96,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$stat$2d$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["StatCard"], {
@@ -4029,29 +4136,29 @@ function DashboardPage() {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 97,
+                                                lineNumber: 102,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                        lineNumber: 84,
+                                        lineNumber: 89,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                lineNumber: 64,
+                                lineNumber: 69,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                            lineNumber: 63,
+                            lineNumber: 68,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                        lineNumber: 62,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     activeCompetition && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4072,12 +4179,12 @@ function DashboardPage() {
                                                         className: "w-8 h-8 text-amber-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                        lineNumber: 116,
+                                                        lineNumber: 121,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 120,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4090,7 +4197,7 @@ function DashboardPage() {
                                                                     children: activeCompetition.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                                    lineNumber: 120,
+                                                                    lineNumber: 125,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4100,20 +4207,20 @@ function DashboardPage() {
                                                                             className: "w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                                            lineNumber: 122,
+                                                                            lineNumber: 127,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         "LIVE"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                                    lineNumber: 121,
+                                                                    lineNumber: 126,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                            lineNumber: 119,
+                                                            lineNumber: 124,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4124,19 +4231,19 @@ function DashboardPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                            lineNumber: 126,
+                                                            lineNumber: 131,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 118,
+                                                    lineNumber: 123,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 114,
+                                            lineNumber: 119,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4150,7 +4257,7 @@ function DashboardPage() {
                                                             children: "Prize Pool"
                                                         }, void 0, false, {
                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                            lineNumber: 133,
+                                                            lineNumber: 138,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4161,13 +4268,13 @@ function DashboardPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                            lineNumber: 134,
+                                                            lineNumber: 139,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 137,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -4181,45 +4288,45 @@ function DashboardPage() {
                                                                 className: "w-4 h-4 ml-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                                lineNumber: 141,
+                                                                lineNumber: 146,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                        lineNumber: 139,
+                                                        lineNumber: 144,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 138,
+                                                    lineNumber: 143,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 131,
+                                            lineNumber: 136,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 113,
+                                    lineNumber: 118,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 117,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                            lineNumber: 111,
+                            lineNumber: 116,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 115,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4237,7 +4344,7 @@ function DashboardPage() {
                                                     children: "Live AI Model Leaderboard"
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 156,
+                                                    lineNumber: 161,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4245,13 +4352,13 @@ function DashboardPage() {
                                                     children: "Top performing AI models ranked by accuracy"
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 162,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 155,
+                                            lineNumber: 160,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -4265,24 +4372,24 @@ function DashboardPage() {
                                                         className: "w-4 h-4 ml-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                        lineNumber: 162,
+                                                        lineNumber: 167,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 160,
+                                                lineNumber: 165,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 159,
+                                            lineNumber: 164,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 154,
+                                    lineNumber: 159,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$leaderboard$2d$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["LeaderboardTable"], {
@@ -4290,18 +4397,18 @@ function DashboardPage() {
                                     onRequestPrediction: handleRequestPrediction
                                 }, void 0, false, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 166,
+                                    lineNumber: 171,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                            lineNumber: 153,
+                            lineNumber: 158,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                        lineNumber: 152,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4319,7 +4426,7 @@ function DashboardPage() {
                                                     children: "Active Competitions"
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 175,
+                                                    lineNumber: 180,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4327,13 +4434,13 @@ function DashboardPage() {
                                                     children: "Compete for prizes with your AI models"
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 176,
+                                                    lineNumber: 181,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 179,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -4347,24 +4454,24 @@ function DashboardPage() {
                                                         className: "w-4 h-4 ml-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 186,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                lineNumber: 179,
+                                                lineNumber: 184,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 178,
+                                            lineNumber: 183,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 178,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4375,23 +4482,23 @@ function DashboardPage() {
                                             onViewLeaderboard: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Leaderboard view coming soon!")
                                         }, competition.id, false, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 187,
+                                            lineNumber: 192,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 185,
+                                    lineNumber: 190,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                            lineNumber: 172,
+                            lineNumber: 177,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                        lineNumber: 171,
+                        lineNumber: 176,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4407,7 +4514,7 @@ function DashboardPage() {
                                             children: "How ERC-8004 Works"
                                         }, void 0, false, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 202,
+                                            lineNumber: 207,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4415,13 +4522,13 @@ function DashboardPage() {
                                             children: "Revolutionary on-chain AI trading infrastructure"
                                         }, void 0, false, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 203,
+                                            lineNumber: 208,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 201,
+                                    lineNumber: 206,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4450,7 +4557,7 @@ function DashboardPage() {
                                                     children: item.icon
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 230,
+                                                    lineNumber: 235,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -4458,7 +4565,7 @@ function DashboardPage() {
                                                     children: item.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 231,
+                                                    lineNumber: 236,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4466,40 +4573,40 @@ function DashboardPage() {
                                                     children: item.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                                    lineNumber: 232,
+                                                    lineNumber: 237,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, i, true, {
                                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                            lineNumber: 226,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 210,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                            lineNumber: 200,
+                            lineNumber: 205,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                        lineNumber: 199,
+                        lineNumber: 204,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                lineNumber: 60,
+                lineNumber: 65,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                lineNumber: 240,
+                lineNumber: 245,
                 columnNumber: 7
             }, this),
             selectedModelData && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$components$2f$inference$2d$modal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["InferenceModal"], {
@@ -4511,13 +4618,13 @@ function DashboardPage() {
                 onSubmit: handleInferenceSubmit
             }, void 0, false, {
                 fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-                lineNumber: 244,
+                lineNumber: 249,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/agent-hedge-fund/frontend/app/page.tsx",
-        lineNumber: 56,
+        lineNumber: 61,
         columnNumber: 5
     }, this);
 }

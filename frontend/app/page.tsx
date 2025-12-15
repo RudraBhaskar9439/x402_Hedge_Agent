@@ -6,19 +6,35 @@ import { Footer } from "@/components/footer"
 import { AnimatedBackground } from "@/components/animated-background"
 import { StatCard } from "@/components/stat-card"
 import { LeaderboardTable } from "@/components/leaderboard-table"
-import { CompetitionCard } from "@/components/competition-card"
 import { InferenceModal } from "@/components/inference-modal"
-import { generateMockModels, generateMockCompetitions, formatNumber } from "@/lib/utils"
-import { Brain, Zap, DollarSign, Trophy, ArrowRight } from "lucide-react"
+import { generateMockModels, formatNumber } from "@/lib/utils"
+import { Brain, Zap, DollarSign, ArrowRight, Wallet, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import toast from "react-hot-toast"
+import { useWallet } from "@/hooks/use-wallet"
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+
+interface PortfolioSummary {
+  totalInvested: number
+  totalInferences: number
+  activeInvestments: number
+  unlockedModels: number
+}
+
+interface PortfolioData {
+  summary: PortfolioSummary
+  investments: any[]
+  payments: any[]
+}
 
 export default function DashboardPage() {
+  const { address, isConnected } = useWallet()
   const [models, setModels] = useState(generateMockModels(10))
-  const [competitions, setCompetitions] = useState(generateMockCompetitions(3))
   const [selectedModel, setSelectedModel] = useState<number | null>(null)
   const [isInferenceModalOpen, setIsInferenceModalOpen] = useState(false)
+  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null)
 
   // Simulate real-time updates
   useEffect(() => {
@@ -35,6 +51,29 @@ export default function DashboardPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // Fetch user portfolio
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      if (!isConnected || !address) return
+
+      try {
+        const response = await fetch(`${API_URL}/api/models/user/portfolio`, {
+          headers: {
+            'x-wallet-address': address
+          }
+        })
+        const data = await response.json()
+        if (data.summary) {
+          setPortfolioData(data)
+        }
+      } catch (error) {
+        console.error("Failed to fetch portfolio", error)
+      }
+    }
+
+    fetchPortfolio()
+  }, [isConnected, address])
+
   const handleRequestPrediction = (modelId: number) => {
     setSelectedModel(modelId)
     setIsInferenceModalOpen(true)
@@ -49,8 +88,17 @@ export default function DashboardPage() {
     console.log("Inference request:", { modelId: selectedModel, ...data })
   }
 
-  const activeCompetition = competitions.find((c) => c.status === "active")
   const selectedModelData = models.find((m) => m.id === selectedModel)
+
+  // Calculate stats
+  const totalModels = models.length
+  const totalInferences = models.reduce((acc, m) => acc + m.totalInferences, 0)
+  const totalVolume = models.reduce((acc, m) => acc + m.revenue, 0)
+
+  // Destructure portfolio data for easier access
+  const portfolio = portfolioData?.summary
+  const investments = portfolioData?.investments || []
+  const payments = portfolioData?.payments || []
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -63,10 +111,11 @@ export default function DashboardPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-gradient">ERC-8004</span> <span className="text-foreground">AI Hedge Fund</span>
+                <span className="text-gradient">OffChain</span> <span className="text-foreground">AI Trading Bot</span>
               </h1>
               <p className="text-xl text-muted-foreground mb-8 text-balance">
-                Where AI Trading Models Are NFTs That Earn From Predictions. On-chain, verifiable, trustless.
+                Invest in AI trading models and pay for premium signals using HTTP 402 Micropayments.
+                Seamless, fast, and verified on-chain.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-12">
                 <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90" asChild>
@@ -76,7 +125,7 @@ export default function DashboardPage() {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="gradient-border bg-transparent" asChild>
-                  <Link href="/competitions">Join Competition</Link>
+                  <Link href="/competitions">Competitions</Link>
                 </Button>
               </div>
 
@@ -105,42 +154,85 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Active Competition Banner */}
-        {activeCompetition && (
-          <section className="py-8">
+        {/* User Portfolio Section */}
+        {isConnected && portfolio && (
+          <section className="py-8 bg-muted/30 border-y border-border/50">
             <div className="container mx-auto px-4">
-              <div className="p-6 rounded-xl bg-gradient-to-r from-primary/20 via-accent/20 to-neon-blue/20 border border-primary/30">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500/30 to-orange-500/30">
-                      <Trophy className="w-8 h-8 text-amber-400" />
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+                  {/* Header */}
+                  <div className="p-6 border-b border-border bg-muted/40">
+                    <h2 className="text-xl font-bold flex items-center gap-2">
+                      <Wallet className="w-5 h-5 text-primary" />
+                      My Investor Dashboard
+                    </h2>
+                  </div>
+
+                  {/* Key Metrics */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x border-border">
+                    <div className="p-6 text-center">
+                      <p className="text-sm text-muted-foreground mb-1">Total Invested</p>
+                      <p className="text-2xl font-bold">{portfolio.totalInvested.toFixed(4)} ETH</p>
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-lg">{activeCompetition.name}</h3>
-                        <span className="px-2 py-0.5 rounded-full bg-neon-green/20 text-neon-green text-xs font-medium flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse" />
-                          LIVE
-                        </span>
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {activeCompetition.participants} participants competing for the prize pool
+                    <div className="p-6 text-center">
+                      <p className="text-sm text-muted-foreground mb-1">Est. Profit (Simulated)</p>
+                      <p className="text-2xl font-bold text-green-500">
+                        +{(portfolio.totalInvested * 0.124).toFixed(4)} ETH
+                        <span className="text-xs ml-2 bg-green-500/10 px-2 py-0.5 rounded-full">+12.4%</span>
                       </p>
+                    </div>
+                    <div className="p-6 text-center">
+                      <p className="text-sm text-muted-foreground mb-1">Unlocked Content</p>
+                      <p className="text-2xl font-bold">{portfolio.unlockedModels} <span className="text-sm font-normal text-muted-foreground">Models</span></p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-sm text-muted-foreground">Prize Pool</p>
-                      <p className="text-2xl font-bold text-gradient">
-                        {Number(activeCompetition.prizePool) / 1e18} ETH
+
+                  {/* lists */}
+                  <div className="bg-muted/10 p-6 border-t border-border">
+                    <h3 className="text-sm font-semibold mb-3 uppercase tracking-wider text-muted-foreground">Purchase History</h3>
+
+                    {/* Investments List */}
+                    {investments.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
+                          <DollarSign className="w-4 h-4" /> Active Investments
+                        </h4>
+                        <div className="space-y-2">
+                          {investments.map((inv: any, i: number) => (
+                            <div key={i} className="flex justify-between items-center text-sm p-3 bg-background rounded-lg border border-border">
+                              <span>Model #{inv.modelId} Investment</span>
+                              <span className="font-mono">{inv.amount} ETH</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Payments List */}
+                    {payments.length > 0 && (
+                      <div>
+                        <h4 className="text-sm font-medium mb-2 flex items-center gap-2">
+                          <Lock className="w-4 h-4" /> Unlocked Inferences
+                        </h4>
+                        <div className="space-y-2">
+                          {payments.map((pay: any, i: number) => (
+                            <div key={i} className="flex justify-between items-center text-sm p-3 bg-background rounded-lg border border-border">
+                              <div className="flex flex-col">
+                                <span>Premium Access: Model #{pay.resourceId}</span>
+                                <span className="text-xs text-muted-foreground">{new Date(pay.timestamp).toLocaleDateString()}</span>
+                              </div>
+                              <span className="font-mono text-green-500">Paid</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {investments.length === 0 && payments.length === 0 && (
+                      <p className="text-center text-muted-foreground text-sm py-4">
+                        No activity yet. Start by unlocking a model or investing!
                       </p>
-                    </div>
-                    <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90" asChild>
-                      <Link href="/competitions">
-                        Enter Now
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Link>
-                    </Button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -167,60 +259,32 @@ export default function DashboardPage() {
           </div>
         </section>
 
-        {/* Competitions Section */}
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-2xl font-bold mb-2">Active Competitions</h2>
-                <p className="text-muted-foreground">Compete for prizes with your AI models</p>
-              </div>
-              <Button variant="outline" asChild>
-                <Link href="/competitions">
-                  View All Competitions
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {competitions.slice(0, 3).map((competition) => (
-                <CompetitionCard
-                  key={competition.id}
-                  competition={competition}
-                  onEnter={() => toast.success("Competition entry modal coming soon!")}
-                  onViewLeaderboard={() => toast.success("Leaderboard view coming soon!")}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* How It Works Section */}
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold mb-2">How ERC-8004 Works</h2>
-              <p className="text-muted-foreground">Revolutionary on-chain AI trading infrastructure</p>
+              <h2 className="text-2xl font-bold mb-2">How It Works</h2>
+              <p className="text-muted-foreground">New Era of AI Investment with Off-Chain Micropayments</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  title: "AI Models as NFTs",
+                  title: "Select a Model",
                   description:
-                    "Each AI trading model is minted as an ERC-721 NFT, making ownership and performance fully verifiable on-chain.",
+                    "Browse top-performing AI trading models with verified track records on the leaderboard.",
                   icon: "🤖",
                 },
                 {
-                  title: "Earn from Predictions",
+                  title: "Pay & Unlock",
                   description:
-                    "Model owners earn fees every time their AI makes a prediction. Subscribers get access to premium trading signals.",
-                  icon: "💰",
+                    "Use ETH micropayments to instantly unlock premium signals and model details via HTTP 402.",
+                  icon: "🔓",
                 },
                 {
-                  title: "Compete & Win",
+                  title: "Invest & Earn",
                   description:
-                    "Enter your models in competitions to prove performance and win prize pools from the community treasury.",
-                  icon: "🏆",
+                    "Invest directly in high-performing models and earn returns based on their trading performance.",
+                  icon: "📈",
                 },
               ].map((item, i) => (
                 <div

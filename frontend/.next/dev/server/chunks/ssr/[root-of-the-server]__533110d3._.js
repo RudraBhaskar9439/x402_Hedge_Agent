@@ -24,7 +24,9 @@ __turbopack_context__.s([
     "generateMockModels",
     ()=>generateMockModels,
     "generateMockSignals",
-    ()=>generateMockSignals
+    ()=>generateMockSignals,
+    "parseEther",
+    ()=>parseEther
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$clsx$2f$dist$2f$clsx$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/clsx/dist/clsx.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$tailwind$2d$merge$2f$dist$2f$bundle$2d$mjs$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/agent-hedge-fund/frontend/node_modules/tailwind-merge/dist/bundle-mjs.mjs [app-ssr] (ecmascript)");
@@ -42,6 +44,10 @@ function formatAddress(address) {
 function formatEth(wei) {
     const eth = typeof wei === "bigint" ? Number(wei) / 1e18 : wei;
     return `${eth.toFixed(4)} ETH`;
+}
+function parseEther(eth) {
+    const ethNum = typeof eth === "string" ? parseFloat(eth) : eth;
+    return BigInt(Math.floor(ethNum * 1e18));
 }
 function formatUSD(amount) {
     return new Intl.NumberFormat("en-US", {
@@ -71,6 +77,11 @@ function formatNumber(value) {
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text);
     __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Copied to clipboard!");
+}
+// Deterministic pseudo-random number generator
+function pseudoRandom(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
 }
 function generateMockModels(count) {
     const names = [
@@ -123,22 +134,28 @@ function generateMockModels(count) {
     ];
     return Array.from({
         length: count
-    }, (_, i)=>({
+    }, (_, i)=>{
+        // sead based on index i to ensure consistency across renders
+        const r1 = pseudoRandom(i * 13.37);
+        const r2 = pseudoRandom(i * 7.11 + 100);
+        const r3 = pseudoRandom(i * 3.14 + 200);
+        return {
             id: i + 1,
             name: names[i % names.length],
-            owner: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
-            strategy: strategies[Math.floor(Math.random() * strategies.length)],
-            accuracy: 55 + Math.random() * 40,
-            totalInferences: Math.floor(100 + Math.random() * 10000),
-            revenue: Math.random() * 50,
-            subscribers: Math.floor(10 + Math.random() * 500),
+            owner: `0x${Math.floor(r1 * 10000000).toString(16).padEnd(8, "0")}...${Math.floor(r2 * 10000).toString(16).padEnd(4, "0")}`,
+            strategy: strategies[Math.floor(r1 * strategies.length)],
+            accuracy: 55 + r2 * 40,
+            totalInferences: Math.floor(100 + r3 * 10000),
+            revenue: r1 * 50,
+            subscribers: Math.floor(10 + r2 * 500),
             icon: icons[i % icons.length],
-            inferencePrice: BigInt(Math.floor(0.001 * 1e18 + Math.random() * 0.01 * 1e18)),
+            inferencePrice: BigInt(Math.floor(0.001 * 1e18 + r3 * 0.01 * 1e18)),
             latestSignal: {
-                action: actions[Math.floor(Math.random() * actions.length)],
-                asset: assets[Math.floor(Math.random() * assets.length)]
+                action: actions[Math.floor(r1 * actions.length)],
+                asset: assets[Math.floor(r2 * assets.length)]
             }
-        }));
+        };
+    });
 }
 function generateMockCompetitions(count) {
     const names = [
@@ -158,6 +175,9 @@ function generateMockCompetitions(count) {
             "ended"
         ];
         const currentStatus = status[i % 3];
+        // deterministic randoms
+        const r1 = pseudoRandom(i * 42.1);
+        const r2 = pseudoRandom(i * 19.9 + 50);
         let startTime, endTime;
         if (currentStatus === "active") {
             startTime = now - 86400 * 3;
@@ -174,9 +194,9 @@ function generateMockCompetitions(count) {
             name: names[i % names.length],
             startTime,
             endTime,
-            prizePool: BigInt(Math.floor((5 + Math.random() * 20) * 1e18)),
-            entryFee: BigInt(Math.floor((0.05 + Math.random() * 0.2) * 1e18)),
-            participants: Math.floor(10 + Math.random() * 100),
+            prizePool: BigInt(Math.floor((5 + r1 * 20) * 1e18)),
+            entryFee: BigInt(Math.floor((0.05 + r2 * 0.2) * 1e18)),
+            participants: Math.floor(10 + r1 * 100),
             status: currentStatus
         };
     });
@@ -199,18 +219,23 @@ function generateMockSignals(count) {
     const now = Date.now() / 1000;
     return Array.from({
         length: count
-    }, (_, i)=>({
+    }, (_, i)=>{
+        const r1 = pseudoRandom(i * 123.45);
+        const r2 = pseudoRandom(i * 67.89 + 1000);
+        const r3 = pseudoRandom(i * 99.99 + 2000);
+        return {
             id: i + 1,
-            timestamp: now - Math.random() * 86400 * 7,
-            asset: assets[Math.floor(Math.random() * assets.length)],
-            action: actions[Math.floor(Math.random() * actions.length)],
-            targetPrice: BigInt(Math.floor((1000 + Math.random() * 5000) * 1e18)),
-            stopLoss: BigInt(Math.floor((800 + Math.random() * 4000) * 1e18)),
-            confidence: 60 + Math.random() * 35,
-            isActive: Math.random() > 0.3,
-            outcome: Math.random() > 0.5 ? "profit" : Math.random() > 0.5 ? "loss" : null,
-            pnl: (Math.random() - 0.5) * 20
-        }));
+            timestamp: now - r1 * 86400 * 7,
+            asset: assets[Math.floor(r1 * assets.length)],
+            action: actions[Math.floor(r2 * actions.length)],
+            targetPrice: BigInt(Math.floor((1000 + r3 * 5000) * 1e18)),
+            stopLoss: BigInt(Math.floor((800 + r1 * 4000) * 1e18)),
+            confidence: 60 + r2 * 35,
+            isActive: r3 > 0.3,
+            outcome: r1 > 0.5 ? "profit" : r2 > 0.5 ? "loss" : null,
+            pnl: (r3 - 0.5) * 20
+        };
+    });
 }
 }),
 "[externals]/node:crypto [external] (node:crypto, cjs)", ((__turbopack_context__, module, exports) => {
@@ -247,7 +272,6 @@ module.exports = mod;
 "use strict";
 
 // Contract ABIs and addresses for ERC-8004 AI Hedge Fund Protocol
-// Network configuration
 __turbopack_context__.s([
     "BASE_SEPOLIA_RPC",
     ()=>BASE_SEPOLIA_RPC,
@@ -257,23 +281,19 @@ __turbopack_context__.s([
     ()=>COMPETITION_ABI,
     "CONTRACTS",
     ()=>CONTRACTS,
-    "LOCAL_RPC",
-    ()=>LOCAL_RPC,
     "MARKETPLACE_ABI",
     ()=>MARKETPLACE_ABI,
     "REGISTRY_ABI",
     ()=>REGISTRY_ABI
 ]);
-const CHAIN_ID = ("TURBOPACK compile-time truthy", 1) ? parseInt(("TURBOPACK compile-time value", "31337")) : "TURBOPACK unreachable" // Default to local
+const CHAIN_ID = 84532 // Base Sepolia
 ;
-const BASE_SEPOLIA_RPC = ("TURBOPACK compile-time value", "http://localhost:8545") || "http://localhost:8545";
-const LOCAL_RPC = "http://localhost:8545";
+const BASE_SEPOLIA_RPC = ("TURBOPACK compile-time value", "http://localhost:8545") || "https://sepolia.base.org";
 const CONTRACTS = {
-    // Local Anvil deployment addresses
-    REGISTRY: ("TURBOPACK compile-time value", "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9") || "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
-    MARKETPLACE: ("TURBOPACK compile-time value", "0x0165878a594ca255338adfa4d48449f69242eb8f") || "0x0165878a594ca255338adfa4d48449f69242eb8f",
-    COMPETITION: ("TURBOPACK compile-time value", "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853") || "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
-    PAYMENT_TOKEN: process.env.NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS || "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707"
+    REGISTRY: ("TURBOPACK compile-time value", "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9") || "0x0000000000000000000000000000000000000000",
+    MARKETPLACE: ("TURBOPACK compile-time value", "0x0165878a594ca255338adfa4d48449f69242eb8f") || "0x0000000000000000000000000000000000000000",
+    COMPETITION: ("TURBOPACK compile-time value", "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853") || "0x0000000000000000000000000000000000000000",
+    X402_MICROPAYMENT: process.env.NEXT_PUBLIC_X402_ADDRESS || "0x0000000000000000000000000000000000000000"
 };
 const REGISTRY_ABI = [
     // View Functions
@@ -281,67 +301,33 @@ const REGISTRY_ABI = [
     "function getModelMetrics(uint256 modelId) view returns (uint256 correctPredictions, uint256 totalPredictions, int256 totalPnL, uint256 totalRevenue, uint256 accuracy)",
     "function getTopModels(uint256 count) view returns (uint256[] modelIds, uint256[] accuracies)",
     "function getInferenceResult(uint256 requestId) view returns (uint256 modelId, address requester, bytes outputData, uint256 confidence, uint256 timestamp)",
-    "function getInvestmentInfo(uint256 modelId, address user) view returns (uint256 amount, uint256 lastInvestTimestamp, uint256 currentStreamingFee)",
-    "function nextModelId() view returns (uint256)",
+    "function totalModels() view returns (uint256)",
     "function ownerOf(uint256 tokenId) view returns (address)",
-    "function investments(uint256 modelId, address user) view returns (uint256 amount, uint256 lastInvestTimestamp)",
     // Write Functions
-    "function registerModel(string modelURI, uint256 inferencePrice, uint256 streamingRate) returns (uint256 modelId)",
+    "function registerModel(string modelURI, uint256 inferencePrice) returns (uint256 modelId)",
     "function requestInference(uint256 modelId, bytes inputData) payable returns (uint256 requestId)",
     "function submitInference(uint256 requestId, bytes outputData, uint256 confidence)",
-    "function updateModelPerformance(uint256 requestId, bool wasCorrect, int256 actualPnL)",
-    "function invest(uint256 modelId) payable",
-    "function withdraw(uint256 modelId, uint256 amount)",
-    // Events
-    "event ModelRegistered(uint256 indexed modelId, address indexed owner, string modelURI, uint256 inferencePrice)",
-    "event InferenceRequested(uint256 indexed requestId, uint256 indexed modelId, address indexed requester, bytes inputData)",
-    "event InferenceCompleted(uint256 indexed requestId, uint256 indexed modelId, bytes outputData, uint256 confidence)",
-    "event PerformanceUpdated(uint256 indexed modelId, uint256 accuracy, uint256 totalInferences)",
-    "event Invested(uint256 indexed modelId, address indexed user, uint256 amount)",
-    "event Withdrawn(uint256 indexed modelId, address indexed user, uint256 amount)"
+    "function updateModelPerformance(uint256 requestId, bool wasCorrect, int256 actualPnL)"
 ];
 const MARKETPLACE_ABI = [
     // View Functions
-    "function getLatestSignals(uint256 modelId, uint256 count) view returns (tuple(uint256 modelId, uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData)[] signals)",
-    "function getSignal(uint256 modelId, uint256 index) view returns (tuple(uint256 modelId, uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData) signal)",
-    "function getSignalCount(uint256 modelId) view returns (uint256)",
+    "function getLatestSignals(uint256 modelId, uint256 count) view returns (tuple(uint256 timestamp, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bool isActive)[] signals)",
     "function getModelStats(uint256 modelId) view returns (uint256 subscribers, uint256 signals, uint256 monthlyPrice, uint256 signalPrice)",
     "function hasActiveSubscription(uint256 modelId, address user) view returns (bool)",
-    "function getSubscription(uint256 modelId, address user) view returns (uint256 startTime, uint256 endTime, uint256 signalsReceived, bool isActive)",
-    "function canAccessSignal(uint256 modelId, uint256 signalIndex, address user) view returns (bool)",
+    "function totalSignals() view returns (uint256)",
     // Write Functions
-    "function setModelPricing(uint256 modelId, uint256 monthlyPrice, uint256 signalPrice)",
-    "function subscribe(uint256 modelId, uint256 months)",
-    "function purchaseSignal(uint256 modelId, uint256 signalIndex)",
-    "function publishSignal(uint256 modelId, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence, bytes extraData)",
-    "function cancelSubscription(uint256 modelId)",
-    // Events
-    "event Subscribed(uint256 indexed modelId, address indexed subscriber, uint256 duration)",
-    "event SignalPublished(uint256 indexed modelId, string asset, string action, uint256 confidence, uint256 timestamp)",
-    "event SignalPurchased(uint256 indexed modelId, address indexed buyer, uint256 price)"
+    "function subscribe(uint256 modelId, uint256 months) payable",
+    "function purchaseSignal(uint256 modelId, uint256 signalIndex) payable",
+    "function publishSignal(uint256 modelId, string asset, string action, uint256 targetPrice, uint256 stopLoss, uint256 confidence)"
 ];
 const COMPETITION_ABI = [
     // View Functions
-    "function getCompetition(uint256 competitionId) view returns (tuple(uint256 id, string name, uint256 startTime, uint256 endTime, uint256 entryFee, uint256 prizePool, uint8 status, uint256[] participantModels, uint256 winnerModelId, uint256 totalParticipants) competition)",
     "function getLeaderboard(uint256 competitionId) view returns (uint256[] modelIds, uint256[] scores)",
     "function getModelScore(uint256 competitionId, uint256 modelId) view returns (uint256 correctPredictions, uint256 totalPredictions, int256 totalPnL, uint256 finalScore)",
-    "function getActiveCompetitions() view returns (uint256[] activeIds)",
-    "function getCompetitionParticipants(uint256 competitionId) view returns (uint256[] modelIds, address[] owners)",
-    "function canStartCompetition(uint256 competitionId) view returns (bool)",
-    "function canCompleteCompetition(uint256 competitionId) view returns (bool)",
-    "function competitionCount() view returns (uint256)",
-    "function hasEntered(uint256 competitionId, uint256 modelId) view returns (bool)",
+    "function getActiveCompetitions() view returns (uint256[] competitionIds)",
+    "function getCompetitionInfo(uint256 competitionId) view returns (string name, uint256 startTime, uint256 endTime, uint256 prizePool, uint256 entryFee, uint256 participants)",
     // Write Functions
-    "function createCompetition(string name, uint256 startTime, uint256 duration, uint256 entryFee) returns (uint256)",
-    "function enterCompetition(uint256 competitionId, uint256 modelId) payable",
-    "function startCompetition(uint256 competitionId)",
-    "function recordPrediction(uint256 competitionId, uint256 modelId, bool wasCorrect, int256 pnl)",
-    "function completeCompetition(uint256 competitionId)",
-    "function cancelCompetition(uint256 competitionId)",
-    // Events
-    "event CompetitionCreated(uint256 indexed competitionId, string name, uint256 startTime, uint256 endTime)",
-    "event ModelEntered(uint256 indexed competitionId, uint256 indexed modelId, address indexed owner)",
-    "event CompetitionCompleted(uint256 indexed competitionId, uint256 indexed winnerModelId, uint256 prize)"
+    "function enterCompetition(uint256 competitionId, uint256 modelId) payable"
 ];
 }),
 "[project]/agent-hedge-fund/frontend/lib/web3.ts [app-ssr] (ecmascript) <locals>", ((__turbopack_context__) => {
@@ -374,15 +360,73 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$fr
 ;
 async function connectWallet() {
     if ("TURBOPACK compile-time truthy", 1) {
-        throw new Error("MetaMask not installed");
+        throw new Error("Window object not available");
+    }
+    if (!window.ethereum) {
+        throw new Error("No Ethereum wallet found. Please install MetaMask or another Web3 wallet.");
     }
     try {
+        // First check if already connected
+        const existingAccounts = await window.ethereum.request({
+            method: "eth_accounts"
+        });
+        if (existingAccounts && existingAccounts.length > 0) {
+            return existingAccounts[0];
+        }
+        // Request connection
         const accounts = await window.ethereum.request({
             method: "eth_requestAccounts"
         });
+        if (!accounts || accounts.length === 0) {
+            throw new Error("No accounts found. Please unlock your wallet.");
+        }
         return accounts[0] || null;
-    } catch  {
-        throw new Error("User rejected connection");
+    } catch (error) {
+        // Handle specific error types
+        if (error && typeof error === "object" && "code" in error) {
+            const errorCode = error.code;
+            // User rejected the connection request (4001)
+            if (errorCode === 4001) {
+                // Don't throw for user rejection - it's intentional
+                return null;
+            }
+            // Request already pending (-32002)
+            if (errorCode === -32002) {
+                throw new Error("Connection request already pending. Please check your wallet and approve the request.");
+            }
+            // Unauthorized (4100)
+            if (errorCode === 4100) {
+                throw new Error("Unauthorized. Please unlock your wallet and try again.");
+            }
+            // Unsupported method (4200)
+            if (errorCode === 4200) {
+                throw new Error("Unsupported method. Please update your wallet to the latest version.");
+            }
+            // Disconnected (4900)
+            if (errorCode === 4900) {
+                throw new Error("Wallet disconnected. Please reconnect your wallet.");
+            }
+            // Chain disconnected (4901)
+            if (errorCode === 4901) {
+                throw new Error("Chain disconnected. Please switch to a supported network.");
+            }
+        }
+        // Handle error messages
+        if (error && typeof error === "object" && "message" in error) {
+            const errorMessage = error.message.toLowerCase();
+            // User rejection - return null silently
+            if (errorMessage.includes("reject") || errorMessage.includes("denied") || errorMessage.includes("user rejected")) {
+                return null;
+            }
+            // Pending request
+            if (errorMessage.includes("already pending") || errorMessage.includes("pending")) {
+                throw new Error("Connection request already pending. Please check your wallet.");
+            }
+            // Return the original error message if it's informative
+            throw new Error(error.message);
+        }
+        // Generic fallback
+        throw new Error("Failed to connect wallet. Please try again.");
     }
 }
 async function switchToBaseSepolia() {
@@ -443,9 +487,7 @@ async function getCurrentChainId() {
     }
 }
 function getProvider() {
-    // Use local RPC if on local network, otherwise use Base Sepolia
-    const rpcUrl = ("TURBOPACK compile-time truthy", 1) ? "http://localhost:8545" : "TURBOPACK unreachable";
-    return new __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$jsonrpc$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["JsonRpcProvider"](rpcUrl);
+    return new __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$ethers$2f$lib$2e$esm$2f$providers$2f$provider$2d$jsonrpc$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["JsonRpcProvider"](__TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["BASE_SEPOLIA_RPC"]);
 }
 async function getBrowserProvider() {
     if (!window.ethereum) return null;
@@ -496,28 +538,24 @@ function useWallet() {
                 isConnecting: true
             }));
         try {
-            const address = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["connectWallet"])();
-            const chainId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["getCurrentChainId"])();
-            if (chainId !== __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CHAIN_ID"]) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].loading("Switching to Base Sepolia...");
-                const switched = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["switchToBaseSepolia"])();
-                if (!switched) {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("Please switch to Base Sepolia network");
-                } else {
-                    __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Connected to Base Sepolia!");
-                }
-            } else {
-                __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].success("Wallet connected!");
+            // Check if wallet is available first
+            if ("TURBOPACK compile-time truthy", 1) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error("No wallet found. Please install MetaMask or another Web3 wallet.");
+                setState((prev)=>({
+                        ...prev,
+                        isConnecting: false
+                    }));
+                return;
             }
-            setState({
-                address,
-                chainId: await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["getCurrentChainId"])(),
-                isConnecting: false,
-                isCorrectChain: await (0, __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$web3$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["getCurrentChainId"])() === __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$lib$2f$contracts$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CHAIN_ID"]
-            });
+            //TURBOPACK unreachable
+            ;
+            const address = undefined;
+            const chainId = undefined;
         } catch (error) {
             const err = error;
-            __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error(err.message || "Failed to connect");
+            console.error("Wallet connection error:", error);
+            // Show error message (user rejections return null, not throw)
+            __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$frontend$2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].error(err.message || "Failed to connect wallet");
             setState((prev)=>({
                     ...prev,
                     isConnecting: false

@@ -125,7 +125,7 @@ function computeCumulativePnL(data: DemoDataPoint[]): DemoDataPoint[] {
 }
 
 function useLiveEthPriceFeed() {
-  const [priceData, setPriceData] = useState<{date: string, price: number}[]>([])
+  const [priceData, setPriceData] = useState<{ date: string, price: number }[]>([])
   const [refreshInterval, setRefreshInterval] = useState(5000) // default 5s
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -142,7 +142,7 @@ function useLiveEthPriceFeed() {
             { date: new Date().toISOString(), price }
           ])
         }
-      } catch {}
+      } catch { }
     }
     fetchPrice()
     if (intervalRef.current) clearInterval(intervalRef.current)
@@ -152,7 +152,7 @@ function useLiveEthPriceFeed() {
   return { priceData, refreshInterval, setRefreshInterval }
 }
 
-function useSimulatedStrategyStats(strategy: StrategyType, priceData: {date: string, price: number}[]) {
+function useSimulatedStrategyStats(strategy: StrategyType, priceData: { date: string, price: number }[]) {
   // Simulate 1000 ETH trading on the live price feed
   const [stats, setStats] = useState({ accuracy: 0, pnl: 0 })
   useEffect(() => {
@@ -216,23 +216,36 @@ function useSimulatedStrategyStats(strategy: StrategyType, priceData: {date: str
   return stats
 }
 
-export function PerformanceChart() {
+interface PerformanceChartProps {
+  data?: { date: string; accuracy: number; pnl: number }[]
+}
+
+export function PerformanceChart({ data }: PerformanceChartProps) {
   const [activeFilter, setActiveFilter] = useState(timeFilters[6].label) // default 7D
   const [activeMetric, setActiveMetric] = useState<"accuracy" | "pnl">("accuracy")
   const [interval, setIntervalValue] = useState(updateIntervals[1].value)
-  const [liveData, setLiveData] = useState(() => generateDemoData())
+  const [liveData, setLiveData] = useState(() => data || generateDemoData())
   const [modelStrategy, setModelStrategy] = useState<StrategyType>('momentum'); // or 'mean-reversion', 'ml', 'random'
   const { priceData, refreshInterval, setRefreshInterval } = useLiveEthPriceFeed()
   const liveStats = useSimulatedStrategyStats(modelStrategy, priceData)
 
   useEffect(() => {
+    // If data was provided via props, we might not want to override it immediately with random demo data
+    // unless the user wants "live" mode. 
+    // For now, if data is provided, we skip the interval update to keep it stable, 
+    // or we only update if data wasn't provided (pure demo mode).
+    if (data) return
+
     const fetchData = () => {
       setLiveData(generateDemoData())
     }
-    fetchData()
+    // fetchData() // Don't fetch immediately on mount if we want to avoid double render or specific behavior
+    // but original code did fetchData() immediately.
+    // If we have data prop, we don't need this.
+
     const intervalId: number = window.setInterval(fetchData, interval)
     return () => clearInterval(intervalId)
-  }, [interval])
+  }, [interval, data])
 
   // Filter data by timeframe
   const filterData = () => {

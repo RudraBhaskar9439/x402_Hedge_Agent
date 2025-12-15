@@ -1,1 +1,16 @@
-{}
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/competitions/[id]/enter/route": "app/api/competitions/[id]/enter/route.js",
+  "/api/models/[id]/details/route": "app/api/models/[id]/details/route.js",
+  "/api/models/[id]/invest/route": "app/api/models/[id]/invest/route.js",
+  "/api/payment/amounts/route": "app/api/payment/amounts/route.js",
+  "/api/payment/verify/route": "app/api/payment/verify/route.js",
+  "/api/x402/start/route": "app/api/x402/start/route.js",
+  "/api/x402/stop/route": "app/api/x402/stop/route.js",
+  "/competitions/page": "app/competitions/page.js",
+  "/marketplace/page": "app/marketplace/page.js",
+  "/model/[id]/page": "app/model/[id]/page.js",
+  "/models/page": "app/models/page.js",
+  "/page": "app/page.js"
+}

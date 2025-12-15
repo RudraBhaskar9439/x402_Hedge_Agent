@@ -9,11 +9,11 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "ERC-8004 AI Hedge Fund Protocol",
+  title: "AgentAlpha - AI Hedge Fund Protocol",
   description:
-    "Revolutionary DeFi platform where AI trading models are NFTs that earn from predictions. On-chain, verifiable, trustless.",
-  keywords: ["DeFi", "AI", "NFT", "Blockchain", "Trading", "Hedge Fund", "Base", "ERC-8004"],
-    generator: 'v0.app'
+    "Revolutionary DeFi platform where AI trading models are agents that earn from predictions. On-chain, verifiable, trustless.",
+  keywords: ["DeFi", "AI", "Agent", "Blockchain", "Trading", "Hedge Fund", "Base", "AgentAlpha"],
+  generator: 'v0.app'
 }
 
 export const viewport: Viewport = {

@@ -75,6 +75,7 @@ contract AITradingCompetition is Ownable, ReentrancyGuard {
     );
     
     constructor(address _modelRegistry) Ownable(msg.sender) {
+        require(_modelRegistry != address(0), "Invalid registry");
         modelRegistry = AIModelRegistry(_modelRegistry);
     }
     
@@ -112,6 +113,8 @@ contract AITradingCompetition is Ownable, ReentrancyGuard {
     
     /**
      * @notice Enter an AI model into competition
+     * @param competitionId The competition to enter
+     * @param modelId The model to enter
      */
     function enterCompetition(
         uint256 competitionId,
@@ -121,8 +124,8 @@ contract AITradingCompetition is Ownable, ReentrancyGuard {
         
         require(comp.status == CompetitionStatus.Pending, "Not accepting entries");
         require(block.timestamp < comp.startTime, "Already started");
-        require(msg.value >= comp.entryFee, "Insufficient entry fee");
         require(!hasEntered[competitionId][modelId], "Already entered");
+        require(msg.value >= comp.entryFee, "Insufficient entry fee");
         
         // Verify model ownership
         address modelOwner = modelRegistry.ownerOf(modelId);

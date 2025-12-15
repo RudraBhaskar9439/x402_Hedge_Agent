@@ -77,17 +77,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$agent$2d$hedge$2d$fund$2f$fr
 ;
 ;
 const metadata = {
-    title: "ERC-8004 AI Hedge Fund Protocol",
-    description: "Revolutionary DeFi platform where AI trading models are NFTs that earn from predictions. On-chain, verifiable, trustless.",
+    title: "AgentAlpha - AI Hedge Fund Protocol",
+    description: "Revolutionary DeFi platform where AI trading models are agents that earn from predictions. On-chain, verifiable, trustless.",
     keywords: [
         "DeFi",
         "AI",
-        "NFT",
+        "Agent",
         "Blockchain",
         "Trading",
         "Hedge Fund",
         "Base",
-        "ERC-8004"
+        "AgentAlpha"
     ],
     generator: 'v0.app'
 };

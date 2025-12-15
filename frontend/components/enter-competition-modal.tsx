@@ -82,6 +82,7 @@ export function EnterCompetitionModal({
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Entry Fee</p>
                 <p className="font-bold text-lg">{formatEth(entryFee)}</p>
+                <p className="text-xs text-primary mt-1">+ x402 micropayment fee</p>
               </div>
             </div>
           </div>

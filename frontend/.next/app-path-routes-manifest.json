@@ -1,0 +1,16 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/competitions/[id]/enter/route": "/api/competitions/[id]/enter",
+  "/api/models/[id]/details/route": "/api/models/[id]/details",
+  "/api/models/[id]/invest/route": "/api/models/[id]/invest",
+  "/api/payment/amounts/route": "/api/payment/amounts",
+  "/api/payment/verify/route": "/api/payment/verify",
+  "/api/x402/start/route": "/api/x402/start",
+  "/api/x402/stop/route": "/api/x402/stop",
+  "/competitions/page": "/competitions",
+  "/marketplace/page": "/marketplace",
+  "/model/[id]/page": "/model/[id]",
+  "/models/page": "/models",
+  "/page": "/"
+}

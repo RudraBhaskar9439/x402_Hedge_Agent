@@ -186,10 +186,12 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner2);
         vm.deal(modelOwner2, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId2);
 
         vm.warp(startTime);
@@ -214,6 +216,7 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.warp(startTime);
@@ -236,10 +239,12 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner2);
         vm.deal(modelOwner2, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId2);
 
         vm.warp(startTime);
@@ -270,6 +275,7 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner1);
@@ -291,10 +297,12 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner2);
         vm.deal(modelOwner2, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId2);
 
         vm.warp(startTime);
@@ -340,14 +348,17 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner2);
         vm.deal(modelOwner2, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId2);
 
         vm.prank(modelOwner3);
         vm.deal(modelOwner3, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId3);
 
         vm.warp(startTime);
@@ -386,6 +397,7 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         uint256 modelOwnerBalanceBefore = modelOwner1.balance;
@@ -413,10 +425,12 @@ contract AITradingCompetitionTest is Test {
 
         vm.prank(modelOwner1);
         vm.deal(modelOwner1, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId1);
 
         vm.prank(modelOwner2);
         vm.deal(modelOwner2, 2 ether);
+        
         competition.enterCompetition{value: 1 ether}(competitionId, modelId2);
 
         vm.warp(startTime);

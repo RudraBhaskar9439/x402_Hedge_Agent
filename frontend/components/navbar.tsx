@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Wallet, LogOut, ExternalLink, ChevronDown, Zap, LayoutDashboard, Bot, Trophy, Store } from "lucide-react"
+import { Wallet, LogOut, ExternalLink, ChevronDown, Zap, LayoutDashboard, Bot, Trophy, Store, Brain } from "lucide-react"
 
 const navLinks = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -31,14 +31,11 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Zap className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary to-accent blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
+            <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors">
+              <Brain className="w-6 h-6 text-primary" />
             </div>
-            <span className="font-bold text-xl hidden sm:block">
-              <span className="text-gradient">ERC-8004</span>
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+              AgentAlpha
             </span>
           </Link>
 

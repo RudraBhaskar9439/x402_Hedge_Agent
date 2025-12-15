@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, use } from "react"
+import { useState, use, useEffect } from "react"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -33,6 +33,8 @@ import {
   ShoppingCart,
 } from "lucide-react"
 import toast from "react-hot-toast"
+import { useX402 } from "@/hooks/use-x402"
+import { useWallet } from "@/hooks/use-wallet"
 
 const strategyColors: Record<string, string> = {
   Momentum: "bg-neon-blue/20 text-neon-blue border-neon-blue/30",
@@ -42,16 +44,27 @@ const strategyColors: Record<string, string> = {
   Arbitrage: "bg-amber-500/20 text-amber-400 border-amber-500/30",
 }
 
+// Deterministic pseudo-random number generator
+function pseudoRandom(seed: number) {
+  const x = Math.sin(seed) * 10000
+  return x - Math.floor(x)
+}
+
 // Generate chart data
-function generateChartData() {
+function generateChartData(modelId: number) {
   const data = []
   const now = Date.now()
+
   for (let i = 30; i >= 0; i--) {
     const date = new Date(now - i * 24 * 60 * 60 * 1000)
+    // Seed based on modelId and index
+    const r1 = pseudoRandom(modelId * 1000 + i * 12.34)
+    const r2 = pseudoRandom(modelId * 2000 + i * 45.67)
+
     data.push({
-      date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      accuracy: 60 + Math.random() * 30 + (30 - i) * 0.3,
-      pnl: (Math.random() - 0.3) * 5 + i * 0.2,
+      date: date.toISOString(), // Use ISO string for proper filtering
+      accuracy: 60 + r1 * 30 + (30 - i) * 0.3,
+      pnl: (r2 - 0.3) * 5 + i * 0.2,
     })
   }
   return data
@@ -60,23 +73,31 @@ function generateChartData() {
 export default function ModelDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params)
   const modelId = Number.parseInt(resolvedParams.id)
+  const { isConnected, address } = useWallet()
+  const { payToViewDetails, checkPaymentStatus, loading: paymentLoading, getPaymentAmounts } = useX402()
   const [model] = useState(() => generateMockModels(15).find((m) => m.id === modelId) || generateMockModels(1)[0])
   const [signals] = useState(() => generateMockSignals(50))
-  const [chartData] = useState(generateChartData)
+  const [chartData] = useState(() => generateChartData(modelId))
   const [isInferenceModalOpen, setIsInferenceModalOpen] = useState(false)
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false)
+  const [hasPaid, setHasPaid] = useState(false)
+  const [paymentAmount, setPaymentAmount] = useState<bigint | null>(null)
 
   // Simulated metrics
-  const [metrics] = useState({
-    correctPredictions: Math.floor(model.totalInferences * (model.accuracy / 100)),
-    totalPredictions: model.totalInferences,
-    totalPnL: model.revenue * 0.8,
-    totalRevenue: model.revenue,
-    trend: Math.random() > 0.5 ? "up" : "down",
-    trendValue: (Math.random() * 5).toFixed(1),
-    subscribers: model.subscribers,
-    monthlyPrice: BigInt(Math.floor(0.1 * 1e18)),
-    signalPrice: BigInt(Math.floor(0.01 * 1e18)),
+  const [metrics] = useState(() => {
+    const r1 = pseudoRandom(modelId * 77.7)
+    const r2 = pseudoRandom(modelId * 88.8)
+    return {
+      correctPredictions: Math.floor(model.totalInferences * (model.accuracy / 100)),
+      totalPredictions: model.totalInferences,
+      totalPnL: model.revenue * 0.8,
+      totalRevenue: model.revenue,
+      trend: r1 > 0.5 ? "up" : "down",
+      trendValue: (r2 * 5).toFixed(1),
+      subscribers: model.subscribers,
+      monthlyPrice: BigInt(Math.floor(0.1 * 1e18)),
+      signalPrice: BigInt(Math.floor(0.01 * 1e18)),
+    }
   })
 
   const handleInferenceSubmit = async (data: { asset: string; price: string }) => {
@@ -91,6 +112,51 @@ export default function ModelDetailPage({ params }: { params: Promise<{ id: stri
     await new Promise((resolve) => setTimeout(resolve, 2000))
     toast.dismiss()
     toast.success(`Subscribed for ${months} month${months > 1 ? "s" : ""}!`)
+  }
+
+  // Check payment status on mount
+  useEffect(() => {
+    const checkPayment = async () => {
+      // Check localStorage first for quick access
+      const localPayment = localStorage.getItem(`payment_model-details_${modelId}`)
+      if (localPayment) {
+        const payment = JSON.parse(localPayment)
+        if (payment.paid) {
+          setHasPaid(true)
+          return
+        }
+      }
+
+      // Check with backend if connected
+      if (isConnected && address) {
+        try {
+          const paid = await checkPaymentStatus('model-details', modelId.toString())
+          setHasPaid(paid)
+        } catch (error) {
+          console.error('Error checking payment status:', error)
+        }
+      }
+    }
+
+    checkPayment()
+  }, [modelId, isConnected, address, checkPaymentStatus])
+
+  // Load payment amount on mount
+  useEffect(() => {
+    getPaymentAmounts().then((amounts) => {
+      setPaymentAmount(amounts.viewDetails)
+    })
+  }, [getPaymentAmounts])
+
+  const handlePayToView = async () => {
+    if (!isConnected) {
+      toast.error("Please connect your wallet first")
+      return
+    }
+    const success = await payToViewDetails(modelId)
+    if (success) {
+      setHasPaid(true)
+    }
   }
 
   const accuracyColor =
@@ -112,7 +178,37 @@ export default function ModelDetailPage({ params }: { params: Promise<{ id: stri
             Back to Models
           </Link>
 
-          {/* Header Section */}
+          {/* X402 Micropayment Gate */}
+          {!hasPaid && (
+            <div className="mb-8 p-6 rounded-xl glass border border-primary/30 bg-gradient-to-r from-primary/10 to-accent/10">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold mb-2">🔒 Premium Content</h3>
+                  <p className="text-muted-foreground">
+                    Pay a small micropayment to view full model details and analytics
+                  </p>
+                  {paymentAmount && (
+                    <p className="text-sm text-primary mt-1">
+                      Cost: {formatEth(paymentAmount)} (x402 micropayment)
+                    </p>
+                  )}
+                </div>
+                <Button
+                  onClick={handlePayToView}
+                  disabled={paymentLoading || !isConnected}
+                  className="bg-gradient-to-r from-primary to-accent hover:opacity-90"
+                >
+                  {paymentLoading
+                    ? "Processing..."
+                    : !isConnected
+                      ? "Connect Wallet"
+                      : `Pay ${paymentAmount ? formatEth(paymentAmount) : ""} to View`}
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Header Section - Always visible */}
           <div className="flex flex-col lg:flex-row gap-8 mb-8">
             {/* Model Info */}
             <div className="flex-1">
@@ -264,75 +360,79 @@ export default function ModelDetailPage({ params }: { params: Promise<{ id: stri
             </div>
           </div>
 
-          {/* Performance Chart */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4">Performance History</h2>
-            <PerformanceChart data={chartData} />
-          </div>
-
-          {/* Subscription Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="p-6 rounded-xl glass border border-border/50">
-              <h3 className="font-bold text-lg mb-4">Monthly Subscription</h3>
-              <p className="text-3xl font-bold text-gradient mb-2">{formatEth(metrics.monthlyPrice)}</p>
-              <p className="text-sm text-muted-foreground mb-4">per month</p>
-              <ul className="space-y-2 mb-4 text-sm">
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
-                  Unlimited trading signals
-                </li>
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
-                  Real-time notifications
-                </li>
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
-                  Priority support
-                </li>
-              </ul>
-              <Button
-                onClick={() => setIsSubscriptionModalOpen(true)}
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
-              >
-                Subscribe Now
-              </Button>
-            </div>
-
-            <div className="p-6 rounded-xl glass border border-border/50">
-              <h3 className="font-bold text-lg mb-4">Pay Per Signal</h3>
-              <p className="text-3xl font-bold text-gradient mb-2">{formatEth(metrics.signalPrice)}</p>
-              <p className="text-sm text-muted-foreground mb-4">per signal</p>
-              <div className="p-4 rounded-lg bg-secondary/30 mb-4">
-                <p className="text-xs text-muted-foreground mb-2">Latest Signal Preview</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">{model.latestSignal?.asset || "ETH"}</span>
-                  <Badge
-                    className={cn(
-                      "text-xs",
-                      model.latestSignal?.action === "BUY"
-                        ? "bg-neon-green/20 text-neon-green"
-                        : model.latestSignal?.action === "SELL"
-                          ? "bg-destructive/20 text-destructive"
-                          : "bg-muted text-muted-foreground",
-                    )}
-                  >
-                    {model.latestSignal?.action || "HOLD"}
-                  </Badge>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">Full details locked - purchase to unlock</p>
+          {/* Performance Chart - Only show if paid */}
+          {hasPaid && (
+            <>
+              <div className="mb-8">
+                <h2 className="text-xl font-bold mb-4">Performance History</h2>
+                <PerformanceChart data={chartData} />
               </div>
-              <Button variant="outline" className="w-full bg-transparent">
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                Purchase Signal
-              </Button>
-            </div>
-          </div>
 
-          {/* Signal History */}
-          <div>
-            <h2 className="text-xl font-bold mb-4">Signal History</h2>
-            <SignalHistoryTable signals={signals} />
-          </div>
+              {/* Subscription Options */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="p-6 rounded-xl glass border border-border/50">
+                  <h3 className="font-bold text-lg mb-4">Monthly Subscription</h3>
+                  <p className="text-3xl font-bold text-gradient mb-2">{formatEth(metrics.monthlyPrice)}</p>
+                  <p className="text-sm text-muted-foreground mb-4">per month</p>
+                  <ul className="space-y-2 mb-4 text-sm">
+                    <li className="flex items-center gap-2 text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
+                      Unlimited trading signals
+                    </li>
+                    <li className="flex items-center gap-2 text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
+                      Real-time notifications
+                    </li>
+                    <li className="flex items-center gap-2 text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
+                      Priority support
+                    </li>
+                  </ul>
+                  <Button
+                    onClick={() => setIsSubscriptionModalOpen(true)}
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
+                  >
+                    Subscribe Now
+                  </Button>
+                </div>
+
+                <div className="p-6 rounded-xl glass border border-border/50">
+                  <h3 className="font-bold text-lg mb-4">Pay Per Signal</h3>
+                  <p className="text-3xl font-bold text-gradient mb-2">{formatEth(metrics.signalPrice)}</p>
+                  <p className="text-sm text-muted-foreground mb-4">per signal</p>
+                  <div className="p-4 rounded-lg bg-secondary/30 mb-4">
+                    <p className="text-xs text-muted-foreground mb-2">Latest Signal Preview</p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">{model.latestSignal?.asset || "ETH"}</span>
+                      <Badge
+                        className={cn(
+                          "text-xs",
+                          model.latestSignal?.action === "BUY"
+                            ? "bg-neon-green/20 text-neon-green"
+                            : model.latestSignal?.action === "SELL"
+                              ? "bg-destructive/20 text-destructive"
+                              : "bg-muted text-muted-foreground",
+                        )}
+                      >
+                        {model.latestSignal?.action || "HOLD"}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">Full details locked - purchase to unlock</p>
+                  </div>
+                  <Button variant="outline" className="w-full bg-transparent">
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Purchase Signal
+                  </Button>
+                </div>
+              </div>
+
+              {/* Signal History */}
+              <div>
+                <h2 className="text-xl font-bold mb-4">Signal History</h2>
+                <SignalHistoryTable signals={signals} />
+              </div>
+            </>
+          )}
         </div>
       </main>
 

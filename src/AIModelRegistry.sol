@@ -438,6 +438,7 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         AIModel storage model = models[modelId];
         require(model.isActive, "Model not active");
         require(msg.value > 0, "No ETH sent");
+        
         InvestmentInfo storage inv = investments[modelId][msg.sender];
         // If new investment, set timestamp
         if (inv.amount == 0) {

@@ -7,7 +7,7 @@ import {IERC8004} from "../src/IERC8004.sol";
 
 // Minimal concrete implementation for testing
 contract TestableAIModelRegistry is AIModelRegistry {
-    // No extra code needed if all functions are implemented in AIModelRegistry
+    constructor() AIModelRegistry() {}
 }
 
 contract AIModelRegistryTest is Test {
@@ -30,9 +30,10 @@ contract AIModelRegistryTest is Test {
 
     function setUp() public {
         owner = address(this);
-        user1 = address(0x1);
-        user2 = address(0x2);
-        oracle = address(0x3);
+        user1 = address(0x1001);
+        user2 = address(0x1002);
+        oracle = address(0x1003);
+        
         registry = new TestableAIModelRegistry();
     }
 
@@ -329,6 +330,7 @@ contract AIModelRegistryTest is Test {
         uint256 modelId = registry.registerModel("ipfs://QmTest123", 1 ether, 1e15);
         vm.prank(user2);
         vm.expectRevert("No ETH sent");
+        vm.expectRevert(); // Should revert for zero amount
         registry.invest{value: 0}(modelId);
     }
 }

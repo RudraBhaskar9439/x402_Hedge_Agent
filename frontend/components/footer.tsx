@@ -3,7 +3,8 @@
 import { copyToClipboard, formatAddress } from "@/lib/utils"
 import { CONTRACTS } from "@/lib/contracts"
 import { Button } from "@/components/ui/button"
-import { Github, FileText, ExternalLink, Copy, Zap } from "lucide-react"
+import Link from "next/link"
+import { Brain, Github, FileText, ExternalLink, Copy } from "lucide-react"
 
 export function Footer() {
   return (
@@ -13,13 +14,13 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary-foreground" />
+              <div className="bg-primary/10 p-2 rounded-lg">
+                <Brain className="w-5 h-5 text-primary" />
               </div>
-              <span className="font-bold text-gradient">ERC-8004</span>
+              <span className="font-bold text-lg">AgentAlpha</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              The first AI hedge fund on blockchain. Verifiable, trustless, revolutionary.
+            <p className="text-muted-foreground">
+              The first decentralized AI Hedge Fund protocol powered by AgentAlpha agents.
             </p>
           </div>
 

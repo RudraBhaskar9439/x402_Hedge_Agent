@@ -3,7 +3,9 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { formatEth } from "@/lib/utils"
+import { formatEth, parseEther } from "@/lib/utils"
+import { useX402 } from "@/hooks/use-x402"
+import toast from "react-hot-toast"
 
 interface InvestWithdrawProps {
   modelId: number
@@ -15,6 +17,7 @@ interface InvestWithdrawProps {
 }
 
 export function InvestWithdraw({ modelId, invested, onInvest, onWithdraw, streamingRate, lastInvestTimestamp }: InvestWithdrawProps) {
+  const { payForDeposit, loading: paymentLoading } = useX402()
   const [amount, setAmount] = useState("")
   const [loading, setLoading] = useState(false)
   const [action, setAction] = useState<"invest" | "withdraw">("invest")
@@ -29,23 +32,19 @@ export function InvestWithdraw({ modelId, invested, onInvest, onWithdraw, stream
     setLoading(true)
     try {
       if (action === "invest") {
-        // Start x402 stream
-        await fetch("/api/x402/start", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ modelId, amount: Number(amount) })
-        })
-        await onInvest(Number(amount))
+        // Pay x402 micropayment for deposit
+        const amountWei = parseEther(amount)
+        const success = await payForDeposit(modelId, amountWei)
+        if (success) {
+          await onInvest(Number(amount))
+          toast.success("Deposit successful with x402 micropayment!")
+        }
       } else {
-        // Stop x402 stream
-        await fetch("/api/x402/stop", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ modelId })
-        })
         await onWithdraw(Number(amount))
       }
       setAmount("")
+    } catch (error: any) {
+      toast.error(error?.message || "Transaction failed")
     } finally {
       setLoading(false)
     }
@@ -71,8 +70,8 @@ export function InvestWithdraw({ modelId, invested, onInvest, onWithdraw, stream
           Estimated streaming fee: <span className="font-mono">{formatEth(BigInt(Math.floor(streamingFee)))}</span> ETH
         </div>
       )}
-      <Button type="submit" className="w-full" disabled={loading || !amount || Number(amount) <= 0}>
-        {loading ? "Processing..." : action === "invest" ? "Invest" : "Withdraw"}
+      <Button type="submit" className="w-full" disabled={loading || paymentLoading || !amount || Number(amount) <= 0}>
+        {loading || paymentLoading ? "Processing..." : action === "invest" ? "Invest (x402)" : "Withdraw"}
       </Button>
       <div className="text-xs text-muted-foreground mt-2">
         Invested: <span className="font-mono">{formatEth(BigInt(invested))}</span> ETH

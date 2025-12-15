@@ -43,9 +43,7 @@ contract DeployScript is Script {
         
         // 4. Deploy AITradingCompetition
         console.log("\n=== Deploying AITradingCompetition ===");
-        AITradingCompetition competition = new AITradingCompetition(
-            address(registry)
-        );
+        AITradingCompetition competition = new AITradingCompetition(address(registry));
         console.log("AITradingCompetition deployed at:", address(competition));
         
         vm.stopBroadcast();

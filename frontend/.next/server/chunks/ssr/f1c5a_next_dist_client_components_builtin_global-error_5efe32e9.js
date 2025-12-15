@@ -1,0 +1,3 @@
+module.exports=[79517,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(73525);a.n(d("[project]/agent-hedge-fund/frontend/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},7846,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(73525);a.n(d("[project]/agent-hedge-fund/frontend/node_modules/next/dist/client/components/builtin/global-error.js"))},31747,a=>{"use strict";a.i(79517);var b=a.i(7846);a.n(b)}];
+
+//# sourceMappingURL=f1c5a_next_dist_client_components_builtin_global-error_5efe32e9.js.map
