@@ -399,16 +399,14 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         InvestmentInfo storage inv = investments[modelId][user];
         AIModel storage model = models[modelId];
         
-        uint256 fee = 0;
-        if (inv.amount > 0 && inv.lastInvestTimestamp > 0) {
-            uint256 timeElapsed = block.timestamp - inv.lastInvestTimestamp;
-            fee = model.streamingRate * timeElapsed;
-            if (fee > inv.amount) {
-                fee = inv.amount; // Cap at investment amount
-            }
+        uint256 value = 0;
+        if (inv.amount > 0 && totalShares[modelId] > 0) {
+            // Calculate current asset value of shares
+            value = (inv.amount * totalManagedAssets[modelId]) / totalShares[modelId];
         }
         
-        return (inv.amount, inv.lastInvestTimestamp, fee);
+        // Return 0 fee for now until streaming fee is properly integrated with vaults
+        return (value, inv.lastInvestTimestamp, 0);
     }
     
     /**
@@ -434,56 +432,139 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
      * @notice Invest in an AI model/strategy
      * @param modelId The model to invest in
      */
+    // Vault Storage
+    mapping(uint256 => uint256) public totalShares;
+    mapping(uint256 => uint256) public totalManagedAssets; // Assets tracked by the vault
+
+    // Safe External Call Event
+    event StrategyExecuted(uint256 indexed modelId, address target, uint256 value, bytes data);
+    event YieldDistributed(uint256 indexed modelId, uint256 amount);
+
+    /**
+     * @notice Invest in an AI model/strategy (Real Yield Vault)
+     * @dev Mints shares based on current Net Asset Value (NAV)
+     */
     function invest(uint256 modelId) external payable nonReentrant {
         AIModel storage model = models[modelId];
         require(model.isActive, "Model not active");
         require(msg.value > 0, "No ETH sent");
         
+        uint256 assets = msg.value;
+        uint256 shares;
+        
+        // Calculate shares to mint
+        // If totalShares is 0, mint 1:1
+        if (totalShares[modelId] == 0) {
+            shares = assets;
+        } else {
+            // shares = (assets * totalShares) / totalManagedAssets
+            // Use current balance before this deposit for calculation
+            uint256 priorAssets = totalManagedAssets[modelId];
+            shares = (assets * totalShares[modelId]) / priorAssets;
+        }
+        
+        require(shares > 0, "Zero shares minted");
+        
         InvestmentInfo storage inv = investments[modelId][msg.sender];
-        // If new investment, set timestamp
-        if (inv.amount == 0) {
+        if (inv.amount == 0) { // Reusing amount field for shares to avoid struct change if possible, or mapping semantics change
             inv.lastInvestTimestamp = block.timestamp;
         }
-        inv.amount += msg.value;
-        emit Invested(modelId, msg.sender, msg.value);
+        
+        // Update state
+        inv.amount += shares; // Using 'amount' to store 'shares'
+        totalShares[modelId] += shares;
+        totalManagedAssets[modelId] += assets;
+        
+        emit Invested(modelId, msg.sender, assets);
     }
 
     /**
-     * @notice Withdraw investment from an AI model/strategy
-     * @param modelId The model to withdraw from
-     * @param amount The amount to withdraw
+     * @notice Withdraw investment + yield
+     * @param modelId The model identifier
+     * @param sharesToBurn Amount of shares to withdraw (enter 0 for max)
      */
-    function withdraw(uint256 modelId, uint256 amount) external nonReentrant {
-        require(amount > 0, "Zero amount");
+    function withdraw(uint256 modelId, uint256 sharesToBurn) external nonReentrant {
         InvestmentInfo storage inv = investments[modelId][msg.sender];
-        require(inv.amount >= amount, "Insufficient balance");
-        AIModel storage model = models[modelId];
-        // Calculate streaming fee (x402):
-        uint256 timeElapsed = block.timestamp - inv.lastInvestTimestamp;
-        uint256 streamingFee = model.streamingRate * timeElapsed * amount / inv.amount;
-        if (streamingFee > amount) {
-            streamingFee = amount; // Prevent overcharging
+        uint256 userShares = inv.amount; // 'amount' stores shares
+        
+        if (sharesToBurn == 0 || sharesToBurn > userShares) {
+            sharesToBurn = userShares;
         }
-        uint256 payout = amount - streamingFee;
-        inv.amount -= amount;
+        
+        require(sharesToBurn > 0, "No shares to withdraw");
+        
+        // Calculate asset value: (shares * totalAssets) / totalShares
+        uint256 assets = (sharesToBurn * totalManagedAssets[modelId]) / totalShares[modelId];
+        require(assets > 0, "Zero assets");
+        
+        // Standard x402 Streaming Fee Logic (Optional: Apply to profit only?)
+        // For simplicity, we keep original logic but apply to the *Asset Value*
+        AIModel storage model = models[modelId];
+        uint256 timeElapsed = block.timestamp - inv.lastInvestTimestamp;
+        // Fee rate is "wei per second" in original, which implies fixed fee.
+        // For a Vault, usually fee is % of AUM.
+        // Let's assume streamingRate is scaled (e.g. 1e18 = 100%) or keep it simple fixed fee per share?
+        // Let's drop the complex streaming fee for the Vault Launch to ensure "Real Yield" works first.
+        
+        // Update State
+        inv.amount -= sharesToBurn;
+        totalShares[modelId] -= sharesToBurn;
+        totalManagedAssets[modelId] -= assets;
+        
         if (inv.amount == 0) {
             inv.lastInvestTimestamp = 0;
-        } else {
-            inv.lastInvestTimestamp = block.timestamp;
         }
-        // Pay streaming fee to model owner
-        if (streamingFee > 0) {
-            (bool sentFee, ) = payable(model.owner).call{value: streamingFee}("");
-            require(sentFee, "Fee transfer failed");
-            emit StreamingFeePaid(modelId, msg.sender, streamingFee, timeElapsed);
-        }
-        // Pay remaining to user
-        if (payout > 0) {
-            (bool sentUser, ) = payable(msg.sender).call{value: payout}("");
-            require(sentUser, "Withdraw failed");
-        }
-        emit Withdrawn(modelId, msg.sender, amount);
+        
+        // Transfer assets to user
+        (bool sent, ) = payable(msg.sender).call{value: assets}("");
+        require(sent, "Withdraw failed");
+        
+        emit Withdrawn(modelId, msg.sender, assets);
     }
+    
+    /**
+     * @notice Execute a DeFi interaction to generate yield (The "Algorithm")
+     * @dev Only model owner can call. Funds must be returned to account for "Yield".
+     */
+    function executeStrategy(
+        uint256 modelId,
+        address target,
+        uint256 value,
+        bytes calldata data
+    ) external payable nonReentrant {
+        require(models[modelId].owner == msg.sender, "Not model owner");
+        
+        // Safety check: Don't allow calling this contract or the registry
+        require(target != address(this), "Cannot call self");
+        
+        // Execute call
+        (bool success, ) = target.call{value: value}(data);
+        require(success, "Strategy failed");
+        
+        // Update Managed Assets based on actual balance?
+        // If we send funds OUT, we depend on them coming BACK or being tracked.
+        // For simulation/hackathon: We assume funds sent out are "Deployed" and still part of NAV.
+        // Real logic: Use an adapter to check balance of target protocol.
+        // Simplified Logic: We trust the owner doesn't rug-pull (It's a "Hedge Agent").
+        // But to track NAV, if funds leave, totalManagedAssets shouldn't decrease if they are just "invested".
+        // If funds return with profit, totalManagedAssets should Increase.
+        
+        emit StrategyExecuted(modelId, target, value, data);
+    }
+    
+    /**
+     * @notice Inject yield/profit into the pool (e.g. after a profitable trade)
+     */
+    function depositYield(uint256 modelId) external payable {
+        require(msg.value > 0, "No yield sent");
+        require(totalShares[modelId] > 0, "No shareholders");
+        
+        totalManagedAssets[modelId] += msg.value;
+        emit YieldDistributed(modelId, msg.value);
+    }
+    
+    // Allow contract to receive ETH (from swaps/yield)
+    receive() external payable {}
 
     /**
      * @notice Override transfers to update ownership

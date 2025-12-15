@@ -144,7 +144,7 @@ export function useX402() {
   )
 
   /**
-   * Pay for deposit (investment)
+   * Pay for deposit (Real Investment into Vault)
    */
   const payForDeposit = useCallback(
     async (modelId: number, depositAmount: bigint): Promise<boolean> => {
@@ -155,14 +155,6 @@ export function useX402() {
 
       setLoading(true)
       try {
-        // First pay the micropayment fee
-        const feePaid = await payForResource('deposit', modelId.toString(), '0.0002')
-
-        if (!feePaid) {
-          return false
-        }
-
-        // Now make the actual investment transaction
         if (!window.ethereum) {
           toast.error('Please install MetaMask')
           return false
@@ -171,40 +163,90 @@ export function useX402() {
         const provider = new ethers.BrowserProvider(window.ethereum)
         const signer = await provider.getSigner()
 
-        toast.loading('Processing investment...', { id: 'invest' })
+        // Initialize Registry Contract
+        const { CONTRACTS, REGISTRY_ABI } = await import('@/lib/contracts')
+        const registry = new ethers.Contract(CONTRACTS.REGISTRY, REGISTRY_ABI, signer)
 
-        // Send investment to registry contract (if you have one)
-        // For now, we'll just record it via API
-        const response = await fetch(`${API_URL}/api/models/${modelId}/invest`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-wallet-address': address
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            amount: ethers.formatEther(depositAmount),
-            investmentTxHash: 'pending' // Would be actual tx hash if using smart contract
-          })
+        toast.loading('Investing in Strategy Vault...', { id: 'invest' })
+
+        // Execute Real On-Chain Deposit
+        const tx = await registry.invest(modelId, {
+          value: depositAmount
         })
 
-        if (response.ok) {
-          toast.success('Investment successful!', { id: 'invest' })
+        toast.loading('Waiting for confirmation...', { id: 'invest' })
+        const receipt = await tx.wait()
+
+        if (receipt.status === 1) {
+          toast.success('Investment confirmed! Your funds are now managed by the agent.', { id: 'invest' })
+
+          // Optional: Sync with backend for fast indexing
+          try {
+            await fetch(`${API_URL}/api/models/${modelId}/invest`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'x-wallet-address': address },
+              body: JSON.stringify({ amount: ethers.formatEther(depositAmount), txHash: tx.hash })
+            })
+          } catch (e) { console.warn('Backend sync failed', e) }
+
           return true
         } else {
-          toast.error('Investment failed', { id: 'invest' })
+          toast.error('Transaction failed on-chain', { id: 'invest' })
           return false
         }
 
       } catch (error: any) {
         console.error('Investment error:', error)
-        toast.error(error.message || 'Investment failed')
+        toast.error(error.reason || error.message || 'Investment failed', { id: 'invest' })
         return false
       } finally {
         setLoading(false)
       }
     },
-    [address, isConnected, payForResource]
+    [address, isConnected]
+  )
+
+  /**
+   * Withdraw from Vault (Real Withdrawal)
+   */
+  const withdrawFromVault = useCallback(
+    async (modelId: number, amountOrShares: bigint): Promise<boolean> => {
+      if (!isConnected || !address) {
+        toast.error('Please connect your wallet')
+        return false
+      }
+
+      setLoading(true)
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum)
+        const signer = await provider.getSigner()
+        const { CONTRACTS, REGISTRY_ABI } = await import('@/lib/contracts')
+        const registry = new ethers.Contract(CONTRACTS.REGISTRY, REGISTRY_ABI, signer)
+
+        toast.loading('Withdrawing from Vault...', { id: 'withdraw' })
+
+        // For now withdrawing all shares or specific amount logic:
+        // Contract takes "sharesToBurn". If 0, it withdraws MAX.
+        // We'll default to MAX for this demo if amount is 0
+        const shares = amountOrShares // In a real app we'd convert Amount -> Shares via previewWithdraw
+
+        const tx = await registry.withdraw(modelId, shares)
+
+        toast.loading('Waiting for confirmation...', { id: 'withdraw' })
+        await tx.wait()
+
+        toast.success('Withdrawal successful! Funds returned to wallet.', { id: 'withdraw' })
+        return true
+
+      } catch (error: any) {
+        console.error('Withdraw error:', error)
+        toast.error(error.reason || error.message || 'Withdrawal failed', { id: 'withdraw' })
+        return false
+      } finally {
+        setLoading(false)
+      }
+    },
+    [address, isConnected]
   )
 
   /**
@@ -297,6 +339,7 @@ export function useX402() {
   return {
     payToViewDetails,
     payForDeposit,
+    withdrawFromVault,
     payForCompetitionEntry,
     checkPaymentStatus,
     fetchProtectedResource,

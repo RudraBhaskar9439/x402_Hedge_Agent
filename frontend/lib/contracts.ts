@@ -24,6 +24,11 @@ export const REGISTRY_ABI = [
   "function requestInference(uint256 modelId, bytes inputData) payable returns (uint256 requestId)",
   "function submitInference(uint256 requestId, bytes outputData, uint256 confidence)",
   "function updateModelPerformance(uint256 requestId, bool wasCorrect, int256 actualPnL)",
+  // Vault Functions
+  "function invest(uint256 modelId) payable",
+  "function withdraw(uint256 modelId, uint256 sharesToBurn)",
+  "function totalManagedAssets(uint256 modelId) view returns (uint256)",
+  "function totalShares(uint256 modelId) view returns (uint256)",
 ] as const
 
 // AISignalMarketplace ABI
