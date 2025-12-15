@@ -28,13 +28,10 @@ async function connectDB() {
 
 // Middleware
 app.use(cors({
-    origin: [
-        process.env.FRONTEND_URL,
-        'https://alpha-agent007.vercel.app',
-        'http://localhost:3000'
-    ],
+    origin: '*', // Allow ALL origins (Nuclear option for debugging)
     credentials: true
 }));
+
 app.use(express.json());
 
 // Session Management
