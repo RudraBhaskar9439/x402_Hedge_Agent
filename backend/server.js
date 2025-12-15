@@ -31,6 +31,7 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'https://alpha-agent007.vercel.app',
+        'https://x402-hedge-agent007.vercel.app',
         process.env.FRONTEND_URL
     ].filter(Boolean),
     credentials: true,
