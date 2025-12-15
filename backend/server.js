@@ -32,14 +32,23 @@ const allowedOrigins = [
     'https://alpha-agent007.vercel.app',
     'https://x402-hedge-agent007.vercel.app',
     process.env.FRONTEND_URL
-].filter(Boolean).map(url => url.replace(/\/$/, ''));
+].filter(Boolean).map(url => url ? url.replace(/\/$/, '') : '');
+
+console.log('Allowed Origins:', allowedOrigins);
 
 const corsOptions = {
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(origin.replace(/\/$/, ''))) {
+        // Check if origin is allowed (tolerant of trailing slashes)
+        const isAllowed = allowedOrigins.some(allowed =>
+            origin === allowed ||
+            origin === allowed + '/' ||
+            origin.replace(/\/$/, '') === allowed
+        );
+
+        if (isAllowed) {
             callback(null, true);
         } else {
             console.log('Blocked by CORS:', origin);
@@ -48,13 +57,24 @@ const corsOptions = {
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-wallet-address', 'Access-Control-Allow-Origin']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-wallet-address', 'Access-Control-Allow-Origin'],
+    optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 
-// Enable pre-flight for all routes
-app.options('*', cors(corsOptions));
+// Explicit fallback for OPTIONS preflight
+app.options('*', (req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes(origin?.replace(/\/$/, ''))) {
+        res.header('Access-Control-Allow-Origin', origin);
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, x-wallet-address, Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Credentials', 'true');
+        return res.sendStatus(200);
+    }
+    next();
+}, cors(corsOptions));
 
 app.use(express.json());
 
