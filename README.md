@@ -1,4 +1,4 @@
-# 🤖 AgebtAplha AI Trading Bot Agent
+# 🤖 AgentAlpha AI Trading Bot Agent
 
 > **Decentralized AI Trading Infrastructure with HTTP 402 Micropayments**
 
