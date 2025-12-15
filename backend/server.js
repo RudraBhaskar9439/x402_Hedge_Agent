@@ -15,14 +15,28 @@ const app = express();
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 let db;
 
+// Start server immediately
+const PORT = process.env.PORT || 3001;
+
+let isDbConnected = false;
+
+connectDB().then(() => {
+    isDbConnected = true;
+}).catch(err => {
+    console.error('Initial DB connection failed but server is running:', err);
+});
+
+// Update connectDB to not exit
 async function connectDB() {
     try {
         await mongoClient.connect();
         db = mongoClient.db();
+        isDbConnected = true;
         console.log('✅ Connected to MongoDB');
     } catch (error) {
         console.error('❌ MongoDB connection error:', error);
-        process.exit(1);
+        isDbConnected = false;
+        // Do not exit, allow server to run for logs/health check
     }
 }
 
@@ -34,20 +48,14 @@ const allowedOrigins = [
     process.env.FRONTEND_URL
 ].filter(Boolean).map(url => url ? url.replace(/\/$/, '') : '');
 
-console.log('Allowed Origins:', allowedOrigins);
-
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-
-        // Check if origin is allowed (tolerant of trailing slashes)
         const isAllowed = allowedOrigins.some(allowed =>
             origin === allowed ||
             origin === allowed + '/' ||
             origin.replace(/\/$/, '') === allowed
         );
-
         if (isAllowed) {
             callback(null, true);
         } else {
@@ -63,7 +71,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Explicit fallback for OPTIONS preflight
 app.options('*', (req, res, next) => {
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin) || allowedOrigins.includes(origin?.replace(/\/$/, ''))) {
@@ -80,17 +87,17 @@ app.use(express.json());
 
 // Session Management
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'dev_secret',
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60 // 1 day
+        ttl: 24 * 60 * 60
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
@@ -100,35 +107,46 @@ app.use((req, res, next) => {
     next();
 });
 
+// Middleware to check DB status
+app.use((req, res, next) => {
+    if (req.path === '/health') return next();
+    if (!isDbConnected) {
+        return res.status(503).json({
+            error: 'Service Unavailable',
+            message: 'Database connection is not yet established'
+        });
+    }
+    next();
+});
+
 // Routes
 app.use('/api/payment', paymentRoutes);
 app.use('/api/models', modelRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({
+        status: isDbConnected ? 'ok' : 'maintenance',
+        db: isDbConnected ? 'connected' : 'disconnected',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // Error handling
 app.use((err, req, res, next) => {
     console.error('Error:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error', details: err.message });
 });
 
-// Start server
-const PORT = process.env.PORT || 3001;
-
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`🚀 X402 Backend running on port ${PORT}`);
-        console.log(`📡 Frontend URL: ${process.env.FRONTEND_URL}`);
-        console.log(`💳 Payment wallet: ${process.env.PAYMENT_WALLET_ADDRESS}`);
-    });
+app.listen(PORT, () => {
+    console.log(`🚀 X402 Backend running on port ${PORT}`);
+    console.log(`📡 Frontend URL: ${process.env.FRONTEND_URL}`);
+    console.log(`💳 Payment wallet: ${process.env.PAYMENT_WALLET_ADDRESS}`);
 });
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-    await mongoClient.close();
+    if (mongoClient) await mongoClient.close();
     process.exit(0);
 });
 
