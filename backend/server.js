@@ -27,17 +27,34 @@ async function connectDB() {
 }
 
 // Middleware
-app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'https://alpha-agent007.vercel.app',
-        'https://x402-hedge-agent007.vercel.app',
-        process.env.FRONTEND_URL
-    ].filter(Boolean),
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://alpha-agent007.vercel.app',
+    'https://x402-hedge-agent007.vercel.app',
+    process.env.FRONTEND_URL
+].filter(Boolean).map(url => url.replace(/\/$/, ''));
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes(origin.replace(/\/$/, ''))) {
+            callback(null, true);
+        } else {
+            console.log('Blocked by CORS:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-wallet-address']
-}));
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-wallet-address', 'Access-Control-Allow-Origin']
+};
+
+app.use(cors(corsOptions));
+
+// Enable pre-flight for all routes
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
