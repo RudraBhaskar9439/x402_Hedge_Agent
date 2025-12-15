@@ -1,4 +1,4 @@
-# 🤖 ERC-8004 AI Hedge Fund Agent
+# 🤖 AgebtAplha AI Trading Bot Agent
 
 > **Decentralized AI Trading Infrastructure with HTTP 402 Micropayments**
 
@@ -17,8 +17,6 @@ The **ERC-8004 AI Hedge Fund** is a decentralized platform where users can:
 1.  **Invest** in autonomous AI Agents that trade crypto.
 2.  **Pay-per-view** for premium trading signals using **HTTP 402 Procotol**.
 3.  **Verify** every prediction and PnL on-chain.
-
-Traditionally, hedge funds are opaque black boxes. We make them transparent, verifiable, and accessible to anyone with a wallet.
 
 ---
 
@@ -134,7 +132,7 @@ Open **`http://localhost:3000`** and connect your wallet!
 
 *   [x] **Phase 1: Foundation** (Done) - Dashboard, Payment Gate, Basic Analytics.
 *   [x] **Phase 2: Payments** (Done) - HTTP 402 implementation with Base Sepolia.
-*   [ ] **Phase 3: Smart Contracts** - Minting Models as ERC-721 NFTs.
+*   [x] **Phase 3: Smart Contracts** - Minting Models as ERC-721 NFTs.
 *   [ ] **Phase 4: Agent Autonomy** - Connecting Python AI agents to execute trades on DEXs automatically.
 
 ---
@@ -145,4 +143,4 @@ This project bridges the gap between **Web2 Efficiency** (HTTP/APIs) and **Web3 
 
 ---
 
-*Built with ❤️ for the AI Agent Hackathon.*
+*Built with ❤️ for the BUILD OnChain with FBI Hackathon.*
