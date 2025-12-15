@@ -12,8 +12,20 @@ const x402Middleware = require('./middleware/x402');
 const app = express();
 
 // MongoDB Connection
-const mongoClient = new MongoClient(process.env.MONGODB_URI);
+// MongoDB Connection
+const mongoUri = process.env.MONGODB_URI;
+let mongoClient;
 let db;
+
+if (mongoUri) {
+    try {
+        mongoClient = new MongoClient(mongoUri);
+    } catch (err) {
+        console.error('❌ Failed to create MongoClient. Check your MONGODB_URI format.', err);
+    }
+} else {
+    console.error('⚠️ MONGODB_URI is missing in environment variables! Database features will not work.');
+}
 
 // Start server immediately
 const PORT = process.env.PORT || 3001;
@@ -28,6 +40,7 @@ connectDB().then(() => {
 
 // Update connectDB to not exit
 async function connectDB() {
+    if (!mongoClient) return;
     try {
         await mongoClient.connect();
         db = mongoClient.db();
@@ -86,20 +99,27 @@ app.options('*', (req, res, next) => {
 app.use(express.json());
 
 // Session Management
-app.use(session({
+const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'dev_secret',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60
-    }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
     }
-}));
+};
+
+if (mongoUri) {
+    sessionConfig.store = MongoStore.create({
+        mongoUrl: mongoUri,
+        ttl: 24 * 60 * 60
+    });
+} else {
+    console.warn('⚠️ Using MemoryStore for sessions (non-persistent). set MONGODB_URI to fix.');
+}
+
+app.use(session(sessionConfig));
 
 // Make DB available to routes
 app.use((req, res, next) => {
