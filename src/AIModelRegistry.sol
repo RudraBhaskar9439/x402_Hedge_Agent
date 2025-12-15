@@ -76,14 +76,12 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         nextRequestId = 1;
     }
     
-    /**
-     * @notice Register a new AI trading model as NFT
-     */
+
     function registerModel(
         string calldata modelURI,
         uint256 inferencePrice,
         uint256 streamingRate
-    ) external returns (uint256 modelId) {
+    ) public returns (uint256 modelId) {
         require(bytes(modelURI).length > 0, "Empty URI");
         require(inferencePrice > 0, "Invalid price");
         require(streamingRate > 0, "Invalid streaming rate");
@@ -117,7 +115,7 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         uint256 inferencePrice
     ) external override returns (uint256 modelId) {
         // Use a default streamingRate for legacy interface
-        return this.registerModel(modelURI, inferencePrice, 1e15);
+        return registerModel(modelURI, inferencePrice, 1e15);
     }
     
     /**
@@ -428,10 +426,7 @@ contract AIModelRegistry is IERC8004, ERC721, Ownable, ReentrancyGuard {
         require(sent, "Withdraw failed");
     }
     
-    /**
-     * @notice Invest in an AI model/strategy
-     * @param modelId The model to invest in
-     */
+
     // Vault Storage
     mapping(uint256 => uint256) public totalShares;
     mapping(uint256 => uint256) public totalManagedAssets; // Assets tracked by the vault

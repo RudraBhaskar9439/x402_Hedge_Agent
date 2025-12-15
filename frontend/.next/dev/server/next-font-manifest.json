@@ -1,22 +1,10 @@
 {
   "app": {
-    "[project]/agent-hedge-fund/frontend/app/competitions/page": [
+    "[project]/app/models/page": [
       "static/media/0c89a48fa5027cee-s.p.4564287c.woff2",
       "static/media/70bc3e132a0a741e-s.p.15008bfb.woff2"
     ],
-    "[project]/agent-hedge-fund/frontend/app/marketplace/page": [
-      "static/media/0c89a48fa5027cee-s.p.4564287c.woff2",
-      "static/media/70bc3e132a0a741e-s.p.15008bfb.woff2"
-    ],
-    "[project]/agent-hedge-fund/frontend/app/model/[id]/page": [
-      "static/media/0c89a48fa5027cee-s.p.4564287c.woff2",
-      "static/media/70bc3e132a0a741e-s.p.15008bfb.woff2"
-    ],
-    "[project]/agent-hedge-fund/frontend/app/models/page": [
-      "static/media/0c89a48fa5027cee-s.p.4564287c.woff2",
-      "static/media/70bc3e132a0a741e-s.p.15008bfb.woff2"
-    ],
-    "[project]/agent-hedge-fund/frontend/app/page": [
+    "[project]/app/page": [
       "static/media/0c89a48fa5027cee-s.p.4564287c.woff2",
       "static/media/70bc3e132a0a741e-s.p.15008bfb.woff2"
     ]

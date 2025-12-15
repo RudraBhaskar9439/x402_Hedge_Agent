@@ -80,7 +80,7 @@ contract AISignalMarketplace is Ownable, ReentrancyGuard {
         address _modelRegistry,
         address _paymentToken
     ) Ownable(msg.sender) {
-        modelRegistry = AIModelRegistry(_modelRegistry);
+        modelRegistry = AIModelRegistry(payable(_modelRegistry));
         paymentToken = IERC20(_paymentToken);
     }
     

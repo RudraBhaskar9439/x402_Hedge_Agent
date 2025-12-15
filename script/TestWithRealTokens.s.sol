@@ -35,7 +35,7 @@ contract TestWithRealTokensScript is Script {
         console.log("Deployer:", deployer);
         console.log("Balance:", deployer.balance / 1e18, "ETH");
         
-        AIModelRegistry registry = AIModelRegistry(REGISTRY_ADDRESS);
+        AIModelRegistry registry = AIModelRegistry(payable(REGISTRY_ADDRESS));
         AISignalMarketplace marketplace = AISignalMarketplace(MARKETPLACE_ADDRESS);
         MockERC20 paymentToken = MockERC20(PAYMENT_TOKEN_ADDRESS);
         

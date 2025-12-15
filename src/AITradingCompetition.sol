@@ -76,7 +76,7 @@ contract AITradingCompetition is Ownable, ReentrancyGuard {
     
     constructor(address _modelRegistry) Ownable(msg.sender) {
         require(_modelRegistry != address(0), "Invalid registry");
-        modelRegistry = AIModelRegistry(_modelRegistry);
+        modelRegistry = AIModelRegistry(payable(_modelRegistry));
     }
     
     /**

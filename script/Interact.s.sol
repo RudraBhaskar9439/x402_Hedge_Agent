@@ -16,10 +16,11 @@ import {MockERC20} from "../src/MockERC20.sol";
  */
 contract InteractScript is Script {
     // Update these addresses after deployment
-    address constant REGISTRY_ADDRESS = address(0); // Update after deployment
-    address constant MARKETPLACE_ADDRESS = address(0); // Update after deployment
-    address constant COMPETITION_ADDRESS = address(0); // Update after deployment
-    address constant PAYMENT_TOKEN_ADDRESS = address(0); // Update after deployment
+    // Update these addresses after deployment
+    address constant REGISTRY_ADDRESS = 0x7ff1C304a6d0F93FB22b168ce6b2c7af95EaCcEb; // Deployed Registry
+    address constant MARKETPLACE_ADDRESS = 0xE6bB32583738126Ab56066309777bd4EE1093018; // Deployed Marketplace
+    address constant COMPETITION_ADDRESS = 0xD9B36305027217dDD44dA2b8834A923656325538; // Deployed Competition
+    address constant PAYMENT_TOKEN_ADDRESS = 0x5C2B588ab7962dB957f668bC06FB58CDF64c6406; // Deployed Token
     
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
@@ -28,7 +29,7 @@ contract InteractScript is Script {
         console.log("Interacting with contracts...");
         console.log("Deployer address:", deployer);
         
-        AIModelRegistry registry = AIModelRegistry(REGISTRY_ADDRESS);
+        AIModelRegistry registry = AIModelRegistry(payable(REGISTRY_ADDRESS));
         AISignalMarketplace marketplace = AISignalMarketplace(MARKETPLACE_ADDRESS);
         AITradingCompetition competition = AITradingCompetition(COMPETITION_ADDRESS);
         MockERC20 paymentToken = MockERC20(PAYMENT_TOKEN_ADDRESS);

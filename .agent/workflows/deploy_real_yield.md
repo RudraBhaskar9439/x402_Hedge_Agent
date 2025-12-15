@@ -7,13 +7,21 @@ description: Deploy Real Yield Vault and Start Agent
 You have successfully upgraded your Hedge Agent codebase to support **Real On-Chain Yield**.
 Follow these steps to deploy the contracts on Base Sepolia and start the trading agent.
 
-## 1. Deploy the New Smart Contracts
+## 1. Setup Environment
+1. Create a `.env` file in the root directory (or copy `.env.example`).
+2. Add your `PRIVATE_KEY` (must start with `0x` if using `cast` or standard tools, though `vm.envUint` handles raw hex too):
+   ```ini
+   PRIVATE_KEY=<YOUR_PRIVATE_KEY>
+   BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
+   ```
+
+## 2. Deploy the New Smart Contracts
 Since `AIModelRegistry.sol` was updated with Vault logic, you must redeploy it.
 
 1. Open a terminal in the root directory.
-2. Run the deployment script (ensure you have your `PRIVATE_KEY` in `.env` or use interactive mode):
+2. Run the deployment script:
    ```bash
-   forge script script/Deploy.s.sol --rpc-url https://sepolia.base.org --broadcast --interactive
+   forge script script/Deploy.s.sol --rpc-url https://sepolia.base.org --broadcast
    ```
 3. Copy the **AIModelRegistry Address** from the output.
 
